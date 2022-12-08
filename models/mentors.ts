@@ -1,13 +1,5 @@
 import { firestore } from "lib/db/firestore";
 
-type MentorData = {
-  name: string;
-  category: string;
-  community: string;
-  description: string;
-  image: string;
-};
-
 const collection = firestore.collection("mentors");
 
 export class Mentor {
