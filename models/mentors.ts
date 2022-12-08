@@ -20,4 +20,12 @@ export class Mentor {
       throw error;
     }
   }
+  static async getAllMentors() {
+    try {
+      const allMentors = await collection.get();
+      return allMentors;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
