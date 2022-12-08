@@ -6,14 +6,10 @@ const methods = require("micro-method-router");
 
 async function postHandler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    
-    const result = await createNewMentor(req.body); 
-    res.json({"Mentor successfully created": result})
-
+    const result = await createNewMentor(req.body);
+    res.json({ "Mentor successfully created": result });
   } catch (error) {
-
     throw error;
-
   }
 }
 const handler = methods({
