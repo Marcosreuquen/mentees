@@ -13,6 +13,11 @@ import {
   Button,
   AlertText,
 } from "./styled";
+import { useState } from "react";
+import Image from "next/image";
+import css from "./index.module.css";
+import AvatarSvg from "public/avatar.svg";
+import { convertBase64 } from "lib/base64";
 
 const schema = yup.object().shape({
   image: yup.mixed()
@@ -25,7 +30,7 @@ const schema = yup.object().shape({
     .test("type", "· El archivo debe ser .jpg o .jpeg", function (value) {
       return value && value[0] && value[0].type === "image/jpeg";
     }),
-    name: yup.string().min(2, "El nombre debe contener al menos 2 caracteres").required(" · Debes ingresar tu nombre."),
+    name: yup.string().min(2, " · El nombre debe contener al menos 2 caracteres.").required(" · Debes ingresar tu nombre."),
     community: yup.string().required(" · Debes ingresar alguna comunidad."),
     description: yup.string().required(" · Agrega una breve descripción."),
     fieldOfExpertise: yup.string().required(" · Indica en que area deseas mentorear."),
@@ -40,9 +45,18 @@ export default function Form() {
     resolver: yupResolver(schema),
   });
 
+  const [userImageBase64, setUserImageBase64] = useState(null as any)
+
+  const onChange = async (e:any) => {
+    const file = e.target.files[0];
+    const convertedBase64 = await convertBase64(file);
+    console.log(convertedBase64);
+    setUserImageBase64(convertedBase64)
+  };
+
   const onSubmit = (data: any) => {
+    data.image = userImageBase64
     console.log(data);
-    
   };
 
   return (
@@ -86,7 +100,11 @@ export default function Form() {
               aria-invalid={errors.fieldOfExpertise ? "true" : "false"}
             />
           </Label>
-          <InputImage type="file" {...register("image")} />
+          <Label htmlFor="image-input" className={css["image-label"]}>
+          Foto de perfil
+          <InputImage type="file" {...register("image")} className={css["image-input"]} onChange={onChange} />
+          {userImageBase64? <Image src={userImageBase64} className={css.preview} width="150" height="150" style={{objectFit:"cover"}} alt="User profile image" /> : <Image src={AvatarSvg} width="150" height="150" style={{objectFit:"cover"}} className={css.preview} alt="Empty user avatar" />}
+          </Label>
         </RightSide>
       </FormContainer>
       
@@ -108,3 +126,4 @@ export default function Form() {
     </FormMentor>
   );
 }
+
