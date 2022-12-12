@@ -18,22 +18,24 @@ import Image from "next/image";
 import css from "./index.module.css";
 import AvatarSvg from "public/avatar.svg";
 import { convertBase64 } from "lib/base64";
+import { createMentor } from "lib/api";
 
 const schema = yup.object().shape({
   image: yup.mixed()
     .test('required', " · Debes selecionar una foto", (value) =>{
       return value && value.length
     } )
-    .test("fileSize", " · El archivo es demasiado grande", (value, context) => {
+    .test("fileSize", " · El archivo es demasiado grande.", (value, context) => {
       return value && value[0] && value[0].size <= 2000000;
     })
-    .test("type", "· El archivo debe ser .jpg o .jpeg", function (value) {
+    .test("type", "· El archivo debe ser .jpg o .jpeg.", function (value) {
       return value && value[0] && value[0].type === "image/jpeg";
     }),
     name: yup.string().min(2, " · El nombre debe contener al menos 2 caracteres.").required(" · Debes ingresar tu nombre."),
     community: yup.string().required(" · Debes ingresar alguna comunidad."),
     description: yup.string().required(" · Agrega una breve descripción."),
     fieldOfExpertise: yup.string().required(" · Indica en que area deseas mentorear."),
+    email: yup.string().email(" · El email debe ser válido.").required(" · Debes ingresar tu email."),
 });
 
 export default function Form() {
@@ -54,9 +56,25 @@ export default function Form() {
     setUserImageBase64(convertedBase64)
   };
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     data.image = userImageBase64
     console.log(data);
+    
+    // try {
+    //   const res = await createMentor( {
+    //       name: data.name,
+    //       category: data.fieldOfExpertise,
+    //       community: data.community,
+    //       description: data.description,
+    //       email: data.email,
+    //       image: data.image,
+    //     }
+    //     )
+    //     console.log(res);
+    // } catch (e) {
+    //   throw e
+    // }
+
   };
 
   return (
@@ -100,6 +118,15 @@ export default function Form() {
               aria-invalid={errors.fieldOfExpertise ? "true" : "false"}
             />
           </Label>
+          <Label htmlFor="email">
+            Email
+            <Input
+              id="email"
+              type="email"
+              {...register("email", { required: true })}
+              aria-invalid={errors.email ? "true" : "false"}
+            />
+          </Label>
           <Label htmlFor="image-input" className={css["image-label"]}>
           Foto de perfil
           <InputImage type="file" {...register("image")} className={css["image-input"]} onChange={onChange} />
@@ -119,6 +146,8 @@ export default function Form() {
 
       
       {errors.fieldOfExpertise && <AlertText>{`${errors.fieldOfExpertise.message}`}</AlertText>}
+      
+      {errors.email && <AlertText>{`${errors.email.message}`}</AlertText>}
 
       {errors.image && <AlertText>{`${errors.image.message}`}</AlertText>}
 
