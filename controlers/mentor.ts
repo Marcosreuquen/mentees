@@ -11,3 +11,12 @@ export async function createNewMentor(data: MentorData) {
     throw error;
   }
 }
+export async function getAllMentors() {
+  try {
+    const snapshot = await Mentor.getAllMentors();
+    const allMentors = snapshot.docs.map((doc) => doc.data());
+    return allMentors;
+  } catch (error) {
+    throw error;
+  }
+}
