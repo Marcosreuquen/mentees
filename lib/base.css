@@ -8,4 +8,10 @@ body{
 
 :root{
     --blanco: #FFFFFF;
+    --max-width: 1280px;
+    --background-gradient: radial-gradient(
+        circle farthest-corner at top center,
+        #cf0c20 15%,
+        #000000 60%
+      );
 }

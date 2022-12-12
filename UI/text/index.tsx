@@ -7,6 +7,7 @@ font-size: 32px;
 line-height: 48px;
 text-align: center;
 color: var(--blanco);
+margin: 0;
 `
 
 export const Large = styled.p`

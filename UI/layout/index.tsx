@@ -1,6 +1,15 @@
 import styled from "styled-components";
+import { Header } from "UI/header";
 
 export const PageConteiner = styled.div`
-background: #CF0C20;
-background: radial-gradient(circle farthest-corner at top center, #CF0C20 15%, #000000 60%);
-`
+  background: var(--background-gradient);
+`;
+
+export function Layout({ children }: any) {
+  return (
+    <PageConteiner>
+      <Header />
+      {children}
+    </PageConteiner>
+  );
+}
