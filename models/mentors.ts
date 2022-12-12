@@ -4,11 +4,21 @@ const collection = firestore.collection("mentors");
 
 export class Mentor {
   id: string;
-  data: MentorData;
-  constructor(id: string, data: MentorData) {
+  data?: MentorData;
+  ref: any;
+  constructor(id: string, data?: any) {
     this.id = id;
     this.data = data;
+    this.ref = collection.doc(id);
   }
+  async pull(): Promise<void> {
+    const snap = await this.ref.get();
+    this.data = snap.data();
+  }
+  async push(): Promise<void> {
+    this.ref.update(this.data);
+  }
+
   static async createNewMentor(data: MentorData) {
     try {
       const newAuthSnap = await collection.add(data);
@@ -27,5 +37,9 @@ export class Mentor {
     } catch (error) {
       throw error;
     }
+  }
+
+  exposeData() {
+    return { id: this.id, ...this.data };
   }
 }
