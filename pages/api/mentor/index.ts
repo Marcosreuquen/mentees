@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { runCorsMiddleware, validateBodySchema } from "lib/middlewares";
 import { createNewMentor, getAllMentors } from "controlers/mentor";
-import { mentorBody } from "lib/schemas";
+import { mentorBodyForCreate } from "lib/schemas";
 const methods = require("micro-method-router");
 
 async function postHandler(req: NextApiRequest, res: NextApiResponse) {
@@ -22,7 +22,7 @@ async function getHandler(req: NextApiRequest, res: NextApiResponse) {
 }
 
 const handler = methods({
-  post: validateBodySchema(mentorBody, postHandler),
+  post: validateBodySchema(mentorBodyForCreate, postHandler),
   get: getHandler,
 });
 
