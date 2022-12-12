@@ -1,13 +1,5 @@
 import { firestore } from "lib/db/firestore";
 
-type MentorData = {
-  name: string;
-  category: string;
-  community: string;
-  description: string;
-  image: string;
-};
-
 const collection = firestore.collection("mentors");
 
 export class Mentor {
@@ -24,6 +16,14 @@ export class Mentor {
       newAuth.data = data;
 
       return newAuth;
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async getAllMentors() {
+    try {
+      const allMentors = await collection.get();
+      return allMentors;
     } catch (error) {
       throw error;
     }
