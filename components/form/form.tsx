@@ -122,7 +122,7 @@ export default function Form() {
 
       {errors.image && <AlertText>{`${errors.image.message}`}</AlertText>}
 
-      <Button type="submit" value="Quiero ser mentor" />
+      <Button>Quiero ser mentor</Button>
     </FormMentor>
   );
 }
