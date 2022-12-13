@@ -1,4 +1,5 @@
-const BASE_URL = "https://mentees-five.vercel.app/api";
+const BASE_URL = "/api";
+
 // const BASE_URL = "http://localhost:3000/api";
 
 export async function fetchAPI(input: RequestInfo, options: any) {
@@ -26,7 +27,8 @@ export async function fetchAPI(input: RequestInfo, options: any) {
   }
 }
 
-interface Mentor {
+
+interface MentorData {
   name: string;
   category: string;
   community: string;
@@ -35,7 +37,7 @@ interface Mentor {
   image: string;
 }
 
-export async function createMentor(data: Mentor) {
+export async function createMentor(data: MentorData) {
   return fetchAPI("/mentor", {
     method: "POST",
     body: { ...data },
