@@ -69,9 +69,10 @@ export const Textarea = styled.textarea`
   border: 1.5px solid var(--blanco);
   color: var(--blanco);
   text-align: center;
+  padding: 20px;
 `;
 
-export const Button = styled.input`
+export const Button = styled.button`
   font-size: 16px;
   color: var(--blanco);
   background-color: transparent;
@@ -84,9 +85,19 @@ export const Button = styled.input`
   font-weight: bold;
   cursor: pointer;
 
-  &:hover {
-    border: 2px solid var(--blanco);
-  }
+  user-select:none;
+  text-decoration: none;
+  transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s; 
+
+  :hover {
+  transition-duration: 0.1s;
+  background-color: #3A3A3A;
+}
+:active {
+            box-shadow:1px 6px 50px 30px rgba(190, 184, 184, 0.24);
+            transform: translateY(4px);
+        }
 `;
 
 export const AlertText = styled.p`
