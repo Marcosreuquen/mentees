@@ -82,6 +82,7 @@ export default function Form() {
             position: toast.POSITION.TOP_CENTER
           });
           reset()
+          setUserImageBase64(null)
         } else {
           toast.error("Ocurrió un error, vuelve a intentar", {
             position: toast.POSITION.TOP_CENTER
