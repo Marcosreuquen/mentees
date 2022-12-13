@@ -9,10 +9,9 @@ export default function Home() {
     <Layout>
       <Title className={css["hero-title"]}>Mentees</Title>
       <Large className={css["hero-text"]}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis
-        sapiente libero atque ad labore ducimus quisquam nisi aliquam,
-        excepturi, quidem suscipit. Debitis modi nisi autem totam obcaecati
-        tempore, dolorem error.
+      En mentees somos un grupo que busca formar una comunidad con personas que quieran compartir conocimientos.
+      Si queres formar parte podes registrarte como mentor completando el formulario de inscripcion. 
+      Si lo que buscas es ayuda podes ponerte en contacto con alguno de nuestros mentores.
       </Large>
       <FormContainer>
         <Form />
