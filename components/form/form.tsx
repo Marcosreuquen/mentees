@@ -19,6 +19,10 @@ import css from "./index.module.css";
 import AvatarSvg from "public/avatar.svg";
 import { convertBase64 } from "lib/base64";
 import { createMentor } from "lib/api";
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 const schema = yup.object().shape({
   image: yup.mixed()
@@ -41,6 +45,7 @@ const schema = yup.object().shape({
 export default function Form() {
   const {
     register,
+    reset,
     formState: { errors },
     handleSubmit,
   } = useForm({
@@ -52,7 +57,7 @@ export default function Form() {
   const onChange = async (e:any) => {
     const file = e.target.files[0];
     const convertedBase64 = await convertBase64(file);
-    console.log(convertedBase64);
+    
     setUserImageBase64(convertedBase64)
   };
 
@@ -71,6 +76,18 @@ export default function Form() {
         }
         )
         console.log(res);
+
+        if (res["Mentor successfully created"].id) {
+          toast.success("¡Gracias! Recibimos tu información.", {
+            position: toast.POSITION.TOP_CENTER
+          });
+          reset()
+        } else {
+          toast.error("Ocurrió un error, vuelve a intentar", {
+            position: toast.POSITION.TOP_CENTER
+          });
+        }
+
     } catch (e) {
       throw e
     }

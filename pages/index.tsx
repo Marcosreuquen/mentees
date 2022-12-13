@@ -3,9 +3,12 @@ import Form from "components/form/form";
 import css from "../styles/index.module.css";
 import { Layout } from "UI/layout";
 import { FormContainer } from "../styles/styled";
+import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   return (
+    <>
+    <ToastContainer />
     <Layout>
       <Title className={css["hero-title"]}>Mentees</Title>
       <Large className={css["hero-text"]}>
@@ -17,5 +20,6 @@ export default function Home() {
         <Form />
       </FormContainer>
     </Layout>
+    </>
   );
 }
