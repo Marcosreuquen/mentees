@@ -49,6 +49,10 @@ export const Input = styled.input`
   min-width: 250px;
   max-width: 250px;
   margin: 8px 0 0 0;
+
+  &:focus {
+    border: 2px solid;
+  }
 `;
 
 export const InputImage = styled(Input)`
@@ -80,6 +84,7 @@ export const Button = styled.button`
   margin: 20px auto 0 auto;
   font-weight: bold;
   cursor: pointer;
+
   user-select:none;
   text-decoration: none;
   transition-duration: 0.4s;
