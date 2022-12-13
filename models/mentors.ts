@@ -38,6 +38,14 @@ export class Mentor {
       throw error;
     }
   }
+  static async deleteOneMentor(id:string){
+    try {
+      const deleteMentor = await collection.doc(id).delete()
+      return deleteMentor
+    } catch (error) {
+      throw error
+    }
+  }
 
   exposeData() {
     return { id: this.id, ...this.data };

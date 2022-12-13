@@ -29,3 +29,8 @@ export async function updateMentor(id: string, data: MentorData) {
   await mentor.push();
   return mentor.exposeData();
 }
+
+export async function deleteMentor(id: string) {
+  const deleteMentor = Mentor.deleteOneMentor(id)
+  return deleteMentor
+}
