@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = "https://mentees-qksespe1h-marcosreuquen.vercel.app/api";
+// const BASE_URL = "http://localhost:3000/api";
 
 export async function fetchAPI(input: RequestInfo, options: any) {
     const url = BASE_URL + input;

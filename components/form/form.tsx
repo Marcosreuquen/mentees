@@ -60,20 +60,20 @@ export default function Form() {
     data.image = userImageBase64
     console.log(data);
     
-    // try {
-    //   const res = await createMentor( {
-    //       name: data.name,
-    //       category: data.fieldOfExpertise,
-    //       community: data.community,
-    //       description: data.description,
-    //       email: data.email,
-    //       image: data.image,
-    //     }
-    //     )
-    //     console.log(res);
-    // } catch (e) {
-    //   throw e
-    // }
+    try {
+      const res = await createMentor( {
+          name: data.name,
+          category: data.fieldOfExpertise,
+          community: data.community,
+          description: data.description,
+          email: data.email,
+          image: data.image,
+        }
+        )
+        console.log(res);
+    } catch (e) {
+      throw e
+    }
 
   };
 
