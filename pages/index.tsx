@@ -1,7 +1,7 @@
 import { Large, Title } from "UI/text";
 import Form from "components/form/form";
 import css from "../styles/index.module.css";
-import { Layout } from "UI/layout";
+import { Layout } from "components/layout";
 import { CardsContainer } from "../styles/styled";
 import { ToastContainer } from "react-toastify";
 import styled from "styled-components";
@@ -17,7 +17,9 @@ export default function Home() {
       <ToastContainer />
       <Layout>
         <ViewHeight>
-          <Title className={css["hero-title"]} textAlign="center">Mentees</Title>
+          <Title className={css["hero-title"]} textAlign="center">
+            Mentees
+          </Title>
           <Large className={css["hero-text"]} margin="0 auto 50px auto;">
             En mentees somos un grupo que busca formar una comunidad con
             personas que quieran compartir conocimientos. Si queres formar parte
@@ -28,7 +30,9 @@ export default function Home() {
           {/* <FormContainer>
             <Form />
           </FormContainer> */}
-          <Title className={css["hero-title"]} textAlign="center">Mentores</Title>
+          <Title className={css["hero-title"]} textAlign="center">
+            Mentores
+          </Title>
           <CardsContainer>
             <MentorCard
               name="Hernán Cosin"
@@ -39,7 +43,7 @@ export default function Home() {
             />
           </CardsContainer>
         </ViewHeight>
-      </Layout> 
+      </Layout>
     </>
   );
 }
