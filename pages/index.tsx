@@ -3,14 +3,18 @@ import Form from "components/form/form";
 import css from "../styles/index.module.css";
 import { Layout } from "UI/layout";
 import { FormContainer } from "../styles/styled";
+import { ToastContainer } from "react-toastify";
 import styled from "styled-components";
 
 const ViewHeight = styled.div`
   min-height: 100vh;
 `;
 
+
 export default function Home() {
   return (
+    <>
+    <ToastContainer />
     <Layout>
       <ViewHeight>
         <Title className={css["hero-title"]}>Mentees</Title>
@@ -26,5 +30,6 @@ export default function Home() {
         </FormContainer>
       </ViewHeight>
     </Layout>
+    </>
   );
 }

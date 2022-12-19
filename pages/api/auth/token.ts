@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { generateToken } from 'lib/jwt';
 import { runCorsMiddleware } from "../../../lib/middlewares";
 
-const methods = require("micro-method-router");
+const methods = require("micro-method-router"); 
 
 
 async function postHandler(req: NextApiRequest, res: NextApiResponse) {

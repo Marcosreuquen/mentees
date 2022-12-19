@@ -1,4 +1,5 @@
 const BASE_URL = "/api";
+
 // const BASE_URL = "http://localhost:3000/api";
 
 export async function fetchAPI(input: RequestInfo, options: any) {
@@ -24,6 +25,16 @@ export async function fetchAPI(input: RequestInfo, options: any) {
       res: res,
     };
   }
+}
+
+
+interface MentorData {
+  name: string;
+  category: string;
+  community: string;
+  description: string;
+  email: string;
+  image: string;
 }
 
 export async function createMentor(data: MentorData) {
