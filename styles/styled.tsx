@@ -5,7 +5,7 @@ export const FormContainer = styled.div`
   max-width: 540px;
   margin: 0 auto;
 `
-export const CardsContainer = styled.section`
+export const CardsContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -14,4 +14,5 @@ export const CardsContainer = styled.section`
   width: 100%;
   max-width: var(--max-width);
   padding: 10px;
+  margin: 0 auto;
 `
