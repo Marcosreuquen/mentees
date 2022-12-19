@@ -14,4 +14,7 @@ body{
         #cf0c20 15%,
         #000000 60%
       );
+    --scrollbar-track-card: inset 0 0 6px rgba(255, 255, 255, 0.5);
+    --scrollbar-thumb-card: #7C251C;
+    --link: #004eff;
 }
