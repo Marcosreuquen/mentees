@@ -4,7 +4,7 @@ import { authMiddleware, runCorsMiddleware } from "../../../lib/middlewares";
 const methods = require("micro-method-router");
 
 function getHandler(req: NextApiRequest, res: NextApiResponse, mentorData:any) {
-  res.status(200).send(mentorData.data);
+  res.status(200).send(mentorData.data); 
 }
 
 const handler = methods({
