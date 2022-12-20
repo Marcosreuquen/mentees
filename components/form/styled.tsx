@@ -49,6 +49,7 @@ export const Input = styled.input`
   min-width: 250px;
   max-width: 250px;
   margin: 8px 0 0 0;
+  padding: 0 0 0 5px;
 
   &:focus {
     border: 2px solid;
@@ -79,9 +80,9 @@ export const Button = styled.button`
   border-radius: 6px;
   border: 1.5px solid var(--blanco);
   height: 40px;
-  min-width: 250px;
+  /* min-width: 250px;
   display: block;
-  margin: 20px auto 0 auto;
+  margin: 20px auto 0 auto; */
   font-weight: bold;
   cursor: pointer;
 

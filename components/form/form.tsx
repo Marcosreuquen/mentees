@@ -22,8 +22,6 @@ import { createMentor } from "lib/api";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-
-
 const schema = yup.object().shape({
   image: yup
     .mixed()
@@ -44,7 +42,7 @@ const schema = yup.object().shape({
     .string()
     .min(2, " · El nombre debe contener al menos 2 caracteres.")
     .required(" · Debes ingresar tu nombre."),
-  community: yup.string().required(" · Debes ingresar alguna comunidad."),
+  community: yup.string().url(" · Debes ingresar una url válida para tu comunidad.").required(" · Debes ingresar alguna comunidad."),
   description: yup.string().required(" · Agrega una breve descripción."),
   fieldOfExpertise: yup
     .string()
@@ -115,6 +113,7 @@ export default function Form() {
             <Input
               id='name'
               type='text'
+              placeholder="Juli Gomez"
               {...register("name", { required: true })}
               aria-invalid={errors.name ? "true" : "false"}
             />
@@ -124,6 +123,7 @@ export default function Form() {
             <Input
               id='community'
               type='text'
+              placeholder="https://discord.com/mi_comunidad"
               {...register("community", { required: true })}
               aria-invalid={errors.community ? "true" : "false"}
             />
@@ -143,6 +143,7 @@ export default function Form() {
             <Input
               id='fieldOfExpertise'
               type='text'
+              placeholder="Front-end React"
               {...register("fieldOfExpertise", { required: true })}
               aria-invalid={errors.fieldOfExpertise ? "true" : "false"}
             />
@@ -152,6 +153,7 @@ export default function Form() {
             <Input
               id='email'
               type='email'
+              placeholder="ju_gomez@gmail.com"
               {...register("email", { required: true })}
               aria-invalid={errors.email ? "true" : "false"}
             />
@@ -206,7 +208,7 @@ export default function Form() {
 
       {errors.image && <AlertText>{`${errors.image.message}`}</AlertText>}
 
-      <Button>Quiero ser mentor</Button>
+      <Button>Guardar</Button>
     </FormMentor>
   );
 }
