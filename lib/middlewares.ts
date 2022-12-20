@@ -1,4 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { Mentor } from "models/mentors";
+import { decodeToken } from "./jwt";
 import Cors from "cors";
 
 const cors = Cors({
@@ -40,4 +42,28 @@ export function validateQuerySchema(schema: any, cb: Function) {
       res.status(422).send({ field: "query", message: error });
     }
   };
+}
+
+export function authMiddleware(callback:Function): Function{
+  return async function (req: NextApiRequest, res:NextApiResponse){
+    
+    
+    if(!req.headers.authorization){
+      res.status(401).send("No token sended")
+    }else{
+      const token = req.headers.authorization.split(` `)[1]
+      
+      const decoded = decodeToken(token) as any
+     
+      if(decoded){
+       const mentorData = new Mentor("42SVSpfxhxMVNpqgXikT")
+       await mentorData.pull()
+       
+       callback(req, res, mentorData)
+  
+      }else{
+       res.status(401).send("Incorrect Token")
+      }
+    }
+  }
 }
