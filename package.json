@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",
+    "@sendgrid/mail": "^7.7.0",
     "@types/cors": "^2.8.13",
     "@types/node": "18.11.10",
     "@types/react": "18.0.26",
@@ -17,21 +18,26 @@
     "bootstrap": "^5.2.3",
     "cloudinary": "^1.32.0",
     "cors": "^2.8.5",
+    "date-fns": "^2.29.3",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
     "firebase-admin": "^11.3.0",
+    "jsonwebtoken": "^8.5.1",
     "micro-method-router": "^0.1.0",
     "next": "13.0.6",
+    "random-seed": "^0.3.0",
     "react": "18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.40.0",
     "react-toastify": "^9.1.1",
+    "sendgrid": "^5.2.3",
     "styled-components": "^5.3.6",
     "typescript": "4.9.3",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/random-seed": "^0.3.3",
     "@types/styled-components": "^5.1.26"
   }
 }
