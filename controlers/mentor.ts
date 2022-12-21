@@ -26,8 +26,13 @@ export async function getAllMentors() {
 export async function updateMentor(id: string, data: MentorData) {
   const mentor = new Mentor(id);
   mentor.data = data;
-  await mentor.push();
-  return mentor.exposeData();
+  try {
+    await mentor.push();
+    return mentor.exposeData();
+    
+  } catch (error) {    
+    throw error
+  }
 }
 
 export async function deleteMentor(id: string) {

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { runCorsMiddleware, validateBodySchema } from "lib/middlewares";
+import { runCorsMiddleware, validateBodySchema, authMiddleware } from "lib/middlewares";
 import { updateMentor, deleteMentor } from "controlers/mentor";
 import { mentorBodyForUpdate } from "lib/schemas";
 const methods = require("micro-method-router");
@@ -10,7 +10,7 @@ async function patchHandler(req: NextApiRequest, res: NextApiResponse) {
     const result = await updateMentor(id as string, req.body);
     res.status(201).json({message:"Updated successfully", changes:result});
   } catch (error) {
-    throw error;
+    res.json({error})
   }
 }
 async function deleteHandler(req: NextApiRequest, res: NextApiResponse) {
@@ -29,5 +29,5 @@ const handler = methods({
 });
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  await runCorsMiddleware(req, res, handler);
+  await runCorsMiddleware(req, res, authMiddleware(handler));
 };

@@ -16,7 +16,13 @@ export class Mentor {
     this.data = snap.data();
   }
   async push(): Promise<void> {
-    this.ref.update(this.data);
+    try {
+      const result = await this.ref.update(this.data);      
+      return result
+
+    } catch (error) {
+      throw error;
+    }
   }
 
   static async createNewMentor(data: MentorData) {
@@ -38,12 +44,12 @@ export class Mentor {
       throw error;
     }
   }
-  static async deleteOneMentor(id:string){
+  static async deleteOneMentor(id: string) {
     try {
-      const deleteMentor = await collection.doc(id).delete()
-      return deleteMentor
+      const deleteMentor = await collection.doc(id).delete();
+      return deleteMentor;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
