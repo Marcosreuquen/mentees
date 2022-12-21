@@ -45,9 +45,11 @@ export class Mentor {
     }
   }
   static async deleteOneMentor(id: string) {
-    try {
-      const deleteMentor = await collection.doc(id).delete();
-      return deleteMentor;
+    try { 
+      const deleteMentor = collection.doc(id);
+      const result = await deleteMentor.delete({exists:true})
+      
+      return result;
     } catch (error) {
       throw error;
     }

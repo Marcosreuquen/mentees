@@ -19,7 +19,7 @@ async function deleteHandler(req: NextApiRequest, res: NextApiResponse) {
     const result = await deleteMentor(id as string);
     res.status(201).json({message:"Deleted successfully", deleteMentorID:result});
   } catch (error) {
-    throw error;
+    res.status(400).json({error})
   }
 }
 

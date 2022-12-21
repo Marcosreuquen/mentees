@@ -36,6 +36,11 @@ export async function updateMentor(id: string, data: MentorData) {
 }
 
 export async function deleteMentor(id: string) {
-  const deleteMentor = Mentor.deleteOneMentor(id)
-  return deleteMentor
+  try {
+    const deleteMentor = await Mentor.deleteOneMentor(id)
+    return deleteMentor
+    
+  } catch (error) {
+    throw error
+  }
 }
