@@ -11,13 +11,16 @@ export async function createNewMentor(data: MentorData) {
     throw error;
   }
 }
-export async function getAllMentors() {
+export async function getAllMentors(limit:number, offset:number) {
+
   try {
-    const snapshot = await Mentor.getAllMentors();
+    const snapshot = await Mentor.getAllMentors(limit, offset);
+    
     const allMentors = snapshot.docs.map((doc) =>
       new Mentor(doc.id, doc.data()).exposeData()
     );
-    return allMentors;
+
+    return {allMentors, size:snapshot.size};
   } catch (error) {
     throw error;
   }

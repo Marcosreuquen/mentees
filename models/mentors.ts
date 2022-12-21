@@ -36,11 +36,13 @@ export class Mentor {
       throw error;
     }
   }
-  static async getAllMentors() {
+  static async getAllMentors(limit:number, offset:number) {
+    
     try {
-      const allMentors = await collection.get();
+      const allMentors = await collection.limit(limit).offset(offset).get()
       return allMentors;
     } catch (error) {
+      
       throw error;
     }
   }
