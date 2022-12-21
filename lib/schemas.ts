@@ -24,3 +24,18 @@ export const mentorBodyForUpdate = yup
   })
   .noUnknown()
   .strict();
+export const CreateAuthBodySchema = yup
+  .object()
+  .shape({
+    email: yup.string().email().required(),
+  })
+  .noUnknown(true)
+  .strict();
+export const createTokenBodySchema = yup
+  .object()
+  .shape({
+    email: yup.string().email().required(),
+    code: yup.number().positive().required(),
+  })
+  .noUnknown(true)
+  .strict();

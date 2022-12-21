@@ -1,4 +1,3 @@
-import { Mentor } from "models/mentors";
 import { Auth } from "models/auth";
 import addMinutes from "date-fns/addMinutes";
 import isFuture from "date-fns/isFuture";
@@ -60,12 +59,12 @@ export const AuthController: any = {
       //chequear fecha de expiración y código
       await auth.pull();
       const date: Date = auth.data.expires.toDate();
-
       if (isFuture(date) && auth.data.code == code) {
         auth.data.code = null;
-        auth.push();
+        await auth.push();
         return { id: auth.id, email: auth.data.email };
-      } else return null;
+      }
+      return null;
     } catch (error) {
       throw error;
     }
