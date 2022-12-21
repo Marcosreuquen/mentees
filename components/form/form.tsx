@@ -10,7 +10,7 @@ import {
   Input,
   InputImage,
   Textarea,
-  Button,
+  PrimaryButton,
   AlertText,
 } from "./styled";
 import { useState } from "react";
@@ -208,7 +208,7 @@ export default function Form() {
 
       {errors.image && <AlertText>{`${errors.image.message}`}</AlertText>}
 
-      <Button>Guardar</Button>
+      <PrimaryButton>Guardar</PrimaryButton>
     </FormMentor>
   );
 }

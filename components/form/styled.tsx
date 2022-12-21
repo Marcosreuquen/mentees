@@ -73,16 +73,13 @@ export const Textarea = styled.textarea`
   padding: 20px;
 `;
 
-export const Button = styled.button`
+export const PrimaryButton = styled.button`
   font-size: 16px;
   color: var(--blanco);
   background-color: transparent;
   border-radius: 6px;
   border: 1.5px solid var(--blanco);
   height: 40px;
-  /* min-width: 250px;
-  display: block;
-  margin: 20px auto 0 auto; */
   font-weight: bold;
   cursor: pointer;
 
@@ -94,6 +91,7 @@ export const Button = styled.button`
   :hover {
   transition-duration: 0.1s;
   background-color: #3A3A3A;
+  color:white;
 }
 :active {
             box-shadow:1px 6px 50px 30px rgba(190, 184, 184, 0.24);

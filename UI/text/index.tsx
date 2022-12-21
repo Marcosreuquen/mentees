@@ -36,3 +36,6 @@ export const Body = styled(Large)<BodyProps>`
   font-size: ${props => props.size || "1.2rem"};
   text-align: initial;
 `
+export const Tiny = styled(Large)<BodyProps>`
+  font-size: 14px;
+`
