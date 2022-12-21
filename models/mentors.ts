@@ -16,7 +16,13 @@ export class Mentor {
     this.data = snap.data();
   }
   async push(): Promise<void> {
-    this.ref.update(this.data);
+    try {
+      const result = await this.ref.update(this.data);      
+      return result
+
+    } catch (error) {
+      throw error;
+    }
   }
 
   static async createNewMentor(data: MentorData) {
@@ -30,20 +36,24 @@ export class Mentor {
       throw error;
     }
   }
-  static async getAllMentors() {
+  static async getAllMentors(limit:number, offset:number) {
+    
     try {
-      const allMentors = await collection.get();
+      const allMentors = await collection.limit(limit).offset(offset).get()
       return allMentors;
     } catch (error) {
+      
       throw error;
     }
   }
-  static async deleteOneMentor(id:string){
-    try {
-      const deleteMentor = await collection.doc(id).delete()
-      return deleteMentor
+  static async deleteOneMentor(id: string) {
+    try { 
+      const deleteMentor = collection.doc(id);
+      const result = await deleteMentor.delete({exists:true})
+      
+      return result;
     } catch (error) {
-      throw error
+      throw error;
     }
   }
 
