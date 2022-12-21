@@ -1,4 +1,3 @@
-import { Mentor } from "models/mentors";
 import { Auth } from "models/auth";
 import addMinutes from "date-fns/addMinutes";
 import isFuture from "date-fns/isFuture";

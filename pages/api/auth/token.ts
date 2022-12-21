@@ -1,18 +1,36 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { generateToken } from 'lib/jwt';
-import { runCorsMiddleware } from "../../../lib/middlewares";
+import { NextApiRequest, NextApiResponse } from "next";
+import { generateToken } from "lib/jwt";
+import {
+  runCorsMiddleware,
+  validateBodySchema,
+} from "../../../lib/middlewares";
+import { AuthController } from "controllers/auth";
+import { createTokenBodySchema } from "lib/schemas";
+const methods = require("micro-method-router");
 
-const methods = require("micro-method-router"); 
+const postHandler: Function = async function (
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  try {
+    const { email, code } = req.body;
+    const data = await AuthController.checkCodeAndExpiration(email, code);
+    if (!data) res.status(401);
+    const token: string = generateToken(data);
+    res.send({ token });
+  } catch (error) {
+    res.status(401);
+  }
+};
 
-
-async function postHandler(req: NextApiRequest, res: NextApiResponse) {
-  const tokenPrueba = generateToken("prueba")
-  res.json({token:tokenPrueba})
-}
 const handler = methods({
   post: postHandler,
-})
+});
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  await runCorsMiddleware(req, res, handler);
+  await runCorsMiddleware(
+    req,
+    res,
+    validateBodySchema(createTokenBodySchema, handler)
+  );
 };
