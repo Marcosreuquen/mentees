@@ -15,9 +15,11 @@ const postHandler: Function = async function (
   try {
     const { email, code } = req.body;
     const data = await AuthController.checkCodeAndExpiration(email, code);
-    if (!data) res.status(401);
-    const token: string = generateToken(data);
-    res.send({ token });
+    if (!data) res.status(401).send({});
+    if (!!data) {
+      const token: string = generateToken(data);
+      res.status(200).send({ token });
+    }
   } catch (error) {
     res.status(401);
   }
