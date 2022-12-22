@@ -13,10 +13,10 @@ const postHandler: Function = async (
   try {
     const auth = await AuthController.findOrCreateAuth(email);
     const sended: boolean = await AuthController.sendCode(email);
-    if (!sended && !auth) send(res, 401);
-    send(res, 201);
+    if (!sended && !auth) return send(res, 401);
+    return res.status(201).send(true);
   } catch (error) {
-    send(res, 400, { message: error });
+    return send(res, 400, { message: error });
   }
 };
 

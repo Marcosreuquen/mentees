@@ -18,7 +18,7 @@ const postHandler: Function = async function (
     if (!data) res.status(401).send({});
     if (!!data) {
       const token: string = generateToken(data);
-      res.status(200).send({ token });
+      return res.status(200).send(JSON.stringify(token));
     }
   } catch (error) {
     res.status(401);

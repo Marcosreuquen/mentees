@@ -44,26 +44,25 @@ export function validateQuerySchema(schema: any, cb: Function) {
   };
 }
 
-export function authMiddleware(callback:Function): Function{
-  return async function (req: NextApiRequest, res:NextApiResponse){
-    
-    
-    if(!req.headers.authorization){
-      res.status(401).send("No token sended")
-    }else{
-      const token = req.headers.authorization.split(` `)[1]
-      
-      const decoded = decodeToken(token) as any
-     
-      if(decoded){
-       const mentorData = new Mentor("42SVSpfxhxMVNpqgXikT")
-       await mentorData.pull()
-       
-       callback(req, res, mentorData)
-  
-      }else{
-       res.status(401).send("Incorrect Token")
+export function authMiddleware(callback: Function): Function {
+  return async function (req: NextApiRequest, res: NextApiResponse) {
+    if (!req.headers.authorization) {
+      res.status(401).send("No token sended");
+    } else {
+      const token = req.headers.authorization.split(` `)[1];
+
+      const decoded = decodeToken(token) as any;
+      console.log(decoded, "decoded");
+
+      if (decoded) {
+        const mentorData = new Mentor(decoded.id.id);
+        await mentorData.pull();
+        console.log(mentorData);
+
+        callback(req, res, mentorData);
+      } else {
+        res.status(401).send("Incorrect Token");
       }
     }
-  }
+  };
 }

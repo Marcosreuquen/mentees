@@ -1,12 +1,16 @@
 import { PrimaryButton } from 'components/form/styled';
 import { Login } from 'components/login';
+import { useMe } from 'hooks/mentor';
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
 export function LoginPopup() {
+  const user = useMe()
   const [smShow, setSmShow] = useState(false);
   const [lgShow, setLgShow] = useState(false);
-
+ 
+  console.log(user, "user");
+  
   return (
     <>
       <PrimaryButton onClick={() => setSmShow(true)}>
@@ -20,13 +24,15 @@ export function LoginPopup() {
       >
         <Modal.Header style={{
           borderBottom: "none",
-          backgroundColor: "var(--gris-claro)"
+          backgroundColor: "var(--gris-claro)",
+          width: "300px"
         }} closeButton>
         </Modal.Header>
         <Modal.Body style={{
           borderRadius: "0 0 7px 7px",
           height: "145px",
-          backgroundColor: "var(--gris-claro)"
+          backgroundColor: "var(--gris-claro)",
+          width: "300px"
         }}>
           <Login/>
         </Modal.Body>

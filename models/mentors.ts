@@ -17,9 +17,8 @@ export class Mentor {
   }
   async push(): Promise<void> {
     try {
-      const result = await this.ref.update(this.data);      
-      return result
-
+      const result = await this.ref.update(this.data);
+      return result;
     } catch (error) {
       throw error;
     }
@@ -36,21 +35,19 @@ export class Mentor {
       throw error;
     }
   }
-  static async getAllMentors(limit:number, offset:number) {
-    
+  static async getAllMentors(limit: number, offset: number) {
     try {
-      const allMentors = await collection.limit(limit).offset(offset).get()
+      const allMentors = await collection.limit(limit).offset(offset).get();
       return allMentors;
     } catch (error) {
-      
       throw error;
     }
   }
   static async deleteOneMentor(id: string) {
-    try { 
+    try {
       const deleteMentor = collection.doc(id);
-      const result = await deleteMentor.delete({exists:true})
-      
+      const result = await deleteMentor.delete({ exists: true });
+
       return result;
     } catch (error) {
       throw error;
