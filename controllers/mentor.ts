@@ -15,12 +15,12 @@ export async function getAllMentors(limit:number, offset:number) {
 
   try {
     const snapshot = await Mentor.getAllMentors(limit, offset);
-    
-    const allMentors = snapshot.docs.map((doc) =>
+
+    const allMentors = snapshot.allMentors.docs.map((doc) =>
       new Mentor(doc.id, doc.data()).exposeData()
     );
 
-    return {allMentors, size:snapshot.size};
+    return {allMentors, size:snapshot.size.count};
   } catch (error) {
     throw error;
   }
