@@ -39,8 +39,10 @@ export class Mentor {
   static async getAllMentors(limit:number, offset:number) {
     
     try {
+      const countAllMentors = await collection.count().get()
       const allMentors = await collection.limit(limit).offset(offset).get()
-      return allMentors;
+
+      return {allMentors, size:countAllMentors.data()};
     } catch (error) {
       
       throw error;
