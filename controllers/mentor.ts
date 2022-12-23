@@ -1,3 +1,4 @@
+import exp from "constants";
 import { uploadImgToCloudinary } from "lib/cloudinary";
 import { Mentor } from "models/mentors";
 
@@ -24,6 +25,16 @@ export async function getAllMentors(limit:number, offset:number) {
     return {allMentors, size:snapshot.size.count};
   } catch (error) {
     throw error;
+  }
+}
+
+export async function getMentorData(authData:any) {
+  try {
+    
+    const result =await Mentor.searchMentorByAuthId(authData.id.id)
+    return result.docs[0].data()
+  } catch (error) {
+    throw error
   }
 }
 

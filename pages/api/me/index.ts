@@ -1,10 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { authMiddleware, runCorsMiddleware } from "../../../lib/middlewares";
+import { getMentorData } from "controllers/mentor";
 
 const methods = require("micro-method-router");
 
-function getHandler(req: NextApiRequest, res: NextApiResponse, mentorData:any) {
-  res.status(200).send(mentorData.data); 
+async function getHandler(req: NextApiRequest, res: NextApiResponse, authData:any) {
+  try {
+    const result = await getMentorData(authData)
+    res.status(200).json({result}); 
+    
+  } catch (error) {
+    return res.status(401).json({error})
+  }
 }
 
 const handler = methods({
