@@ -11,7 +11,7 @@ export class Mentor {
     this.data = data;
     this.ref = collection.doc(id);
   }
-  async pull(): Promise<void> {
+  async pull(): Promise<void> {    
     const snap = await this.ref.get();
     this.data = snap.data();
   }
@@ -27,11 +27,20 @@ export class Mentor {
 
   static async createNewMentor(data: MentorData) {
     try {
-      const newAuthSnap = await collection.add(data);
-      const newAuth = new Mentor(newAuthSnap.id, data);
-      newAuth.data = data;
+      
+      const findIfMentorExists = await collection.where("ownerAuthID", "==", data.ownerAuthID).get()
+      
+      if(findIfMentorExists.docs.length){
 
-      return newAuth;
+        return {Message:"Mentor Already created for this user", mentor:findIfMentorExists.docs[0].data()}
+        
+      }else{
+
+        const newAuthSnap = await collection.add(data);
+        const newAuth = new Mentor(newAuthSnap.id, data);
+        newAuth.data = data;
+        return {message:"Mentor Created", newAuth}
+      }
     } catch (error) {
       throw error;
     }
@@ -59,6 +68,14 @@ export class Mentor {
     }
   }
 
+  static async searchMentorByEmail(email:string){
+    
+    const cleanEmail = email.trim().toLowerCase();
+    
+    const result = await collection.where("email", "==", cleanEmail).get();
+
+    return result
+  }
   exposeData() {
     return { id: this.id, ...this.data };
   }

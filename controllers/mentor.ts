@@ -1,10 +1,11 @@
 import { uploadImgToCloudinary } from "lib/cloudinary";
 import { Mentor } from "models/mentors";
 
-export async function createNewMentor(data: MentorData) {
+export async function createNewMentor(data: MentorData, authData:any) {
   try {
+    
     const image = await uploadImgToCloudinary(data.image);
-    const mentor = { ...data, image };
+    const mentor = { ...data, image, ownerAuthID:authData.id.id };
     const result = await Mentor.createNewMentor(mentor);
     return result;
   } catch (error) {
