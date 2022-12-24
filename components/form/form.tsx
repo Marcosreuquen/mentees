@@ -114,32 +114,32 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
     data.image = userImageBase64;
     console.log(data);
 
-    // try {
-    //   const res = await createMentor( {
-    //       name: data.name,
-    //       category: data.fieldOfExpertise,
-    //       community: data.community,
-    //       description: data.description,
-    //       email: data.email,
-    //       image: data.image,
-    //     }
-    //     )
-    //     console.log(res);
+    try {
+      const res = await createMentor( {
+          name: data.name,
+          category: data.fieldOfExpertise,
+          community: data.community,
+          description: data.description,
+          email: data.email,
+          image: data.image,
+        }
+        )
+        console.log(res);
 
-    //     if (res["Mentor successfully created"].id) {
-    //       toast.success("¡Gracias! Recibimos tu información.", {
-    //         position: toast.POSITION.TOP_CENTER
-    //       });
-    //       reset()
-    //       setUserImageBase64(null)
-    //     } else {
-    //       toast.error("Ocurrió un error, vuelve a intentar", {
-    //         position: toast.POSITION.TOP_CENTER
-    //       });
-    //     }
-    // } catch (e) {
-    //   throw e;
-    // }
+        if (res.result.mentor.ownerAuthID) {
+          toast.success("¡Gracias! Recibimos tu información.", {
+            position: toast.POSITION.TOP_CENTER
+          });
+          reset()
+          setUserImageBase64(null)
+        } else {
+          toast.error("Ocurrió un error, vuelve a intentar", {
+            position: toast.POSITION.TOP_CENTER
+          });
+        }
+    } catch (e) {
+      throw e;
+    }
   };
 
   return (
