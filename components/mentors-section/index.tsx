@@ -61,7 +61,7 @@ export const MentorsSection = () => {
       <ButtonsContainer>
         <PrimaryButton onClick={handlePrevClick}> Prev </PrimaryButton>
         {paginacion.map((e) => {
-          return <BulletButton active={e==pageIndicator? "active" : ""}>{e}</BulletButton>;
+          return <BulletButton active={e==pageIndicator? "active" : ""} key={e}>{e}</BulletButton>;
         })}
         <PrimaryButton onClick={handleSigClick}> Sig </PrimaryButton>
       </ButtonsContainer>

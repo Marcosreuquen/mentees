@@ -20,12 +20,9 @@ import Image from "next/image";
 import css from "./index.module.css";
 import AvatarSvg from "public/avatar.svg";
 import { convertBase64 } from "lib/base64";
-import { createMentor } from "lib/api";
+import { createMentor, updateMentor } from "lib/api";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import mentor from "pages/api/mentor";
-
-
 
 export default function Form({mentorData}: {mentorData?:MentorData}) {
   const schema = yup.object().shape({
@@ -58,10 +55,10 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
       .email(" · El email debe ser válido.")
       .required(" · Debes ingresar tu email."),
   });
+  const [userImageBase64, setUserImageBase64] = useState(null as any);
   
   const {
     register,
-    reset,
     formState: { errors },
     handleSubmit,
     setValue
@@ -69,13 +66,9 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
     resolver: yupResolver(schema),
   });
 
-  const [userImageBase64, setUserImageBase64] = useState(null as any);
 
   useEffect(()=>{
-    // console.log("img", userImageBase64);
-  }, [userImageBase64])
-
-  useEffect(()=>{
+    // setting default values if mentor user already exist
     {!mentorData? null : 
       setValue("name", mentorData.name as string)
     }
@@ -94,7 +87,7 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
     {!mentorData? null : 
       setUserImageBase64(mentorData.image)
       setValue("image", userImageBase64)
-    }
+    }    
   }, [mentorData])
 
   const onChange = async (e: any) => {
@@ -109,13 +102,32 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
     console.log("DELETE");
   }
 
-  const onSubmit = async (data: any) => {
-    {mentorData? console.log("UPDATE")  : console.log("SAVE");}
+  const onSubmit: any = async (data: any) => {
     data.image = userImageBase64;
-    console.log(data);
 
-    try {
-      const res = await createMentor( {
+    if (mentorData) {
+      try {
+        const res = await updateMentor( {
+          name: data.name,
+          category: data.fieldOfExpertise,
+          community: data.community,
+          description: data.description,
+          email: data.email,
+          image: data.image,
+        })
+
+        if (res.result.newAuth.ownerAuthID) {
+          toast.success("Se ha actualizado tu información.", {
+            position: toast.POSITION.TOP_CENTER
+          });
+        } 
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+
+      try {
+        const res = await createMentor( {
           name: data.name,
           category: data.fieldOfExpertise,
           community: data.community,
@@ -124,21 +136,15 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
           image: data.image,
         }
         )
-        console.log(res);
 
-        if (res.result.mentor.ownerAuthID) {
-          toast.success("¡Gracias! Recibimos tu información.", {
-            position: toast.POSITION.TOP_CENTER
-          });
-          reset()
-          setUserImageBase64(null)
-        } else {
-          toast.error("Ocurrió un error, vuelve a intentar", {
-            position: toast.POSITION.TOP_CENTER
-          });
-        }
-    } catch (e) {
-      throw e;
+        if (res.result.newAuth.ownerAuthID) {
+            toast.success("¡Gracias! Recibimos tu información.", {
+              position: toast.POSITION.TOP_CENTER
+            });
+          }
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
