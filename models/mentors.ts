@@ -26,19 +26,31 @@ export class Mentor {
 
   static async createNewMentor(data: MentorData) {
     try {
-      const newAuthSnap = await collection.add(data);
-      const newAuth = new Mentor(newAuthSnap.id, data);
-      newAuth.data = data;
+      const findIfMentorExists = await collection
+        .where("ownerAuthID", "==", data.ownerAuthID)
+        .get();
 
-      return newAuth;
+      if (findIfMentorExists.docs.length) {
+        return {
+          Message: "Mentor Already created for this user",
+          mentor: findIfMentorExists.docs[0].data(),
+        };
+      } else {
+        const newAuthSnap = await collection.add(data);
+        const newAuth = new Mentor(newAuthSnap.id, data);
+        newAuth.data = data;
+        return { message: "Mentor Created", newAuth };
+      }
     } catch (error) {
       throw error;
     }
   }
   static async getAllMentors(limit: number, offset: number) {
     try {
+      const countAllMentors = await collection.count().get();
       const allMentors = await collection.limit(limit).offset(offset).get();
-      return allMentors;
+
+      return { allMentors, size: countAllMentors.data() };
     } catch (error) {
       throw error;
     }
@@ -54,6 +66,15 @@ export class Mentor {
     }
   }
 
+  static async searchMentorByAuthId(authID: string) {
+    try {
+      const result = await collection.where("ownerAuthID", "==", authID).get();
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
   exposeData() {
     return { id: this.id, ...this.data };
   }

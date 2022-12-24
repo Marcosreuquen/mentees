@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Mentor } from "models/mentors";
 import { decodeToken } from "./jwt";
 import Cors from "cors";
+import { Auth } from "models/auth";
 
 const cors = Cors({
   methods: ["POST", "GET", "PATCH", "HEAD", "OPTIONS"],
@@ -24,10 +25,14 @@ export function runCorsMiddleware(
 }
 
 export function validateBodySchema(schema: any, cb: Function) {
-  return async function (req: NextApiRequest, res: NextApiResponse) {
+  return async function (
+    req: NextApiRequest,
+    res: NextApiResponse,
+    authData?: any
+  ) {
     try {
       await schema.validate(req.body);
-      cb(req, res);
+      cb(req, res, authData);
     } catch (error) {
       res.status(422).send({ field: "body", message: error });
     }
@@ -52,14 +57,9 @@ export function authMiddleware(callback: Function): Function {
       const token = req.headers.authorization.split(` `)[1];
 
       const decoded = decodeToken(token) as any;
-      console.log(decoded, "decoded");
 
       if (decoded) {
-        const mentorData = new Mentor(decoded.id.id);
-        await mentorData.pull();
-        console.log(mentorData);
-
-        callback(req, res, mentorData);
+        callback(req, res, decoded);
       } else {
         res.status(401).send("Incorrect Token");
       }
