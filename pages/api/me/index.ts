@@ -13,7 +13,8 @@ async function getHandler(
 
   try {
     const result = await getMentorData(authData);
-    res.status(200).json({ result });
+    
+    return res.status(200).json({ result });
   } catch (error) {
     return res.status(401).json({ error });
   }

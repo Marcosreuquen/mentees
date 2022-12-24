@@ -52,6 +52,13 @@ export async function createMentor(data: MentorData) {
   });
 }
 
+export async function updateMentor(data: MentorData) {
+  return fetchAPI("/mentor", {
+    method: "PATCH",
+    body: { ...data },
+  });
+}
+
 //envia al email el codigo para ingresar
 export async function sendCode(email: string) {
   return fetchAPI("/auth", {
