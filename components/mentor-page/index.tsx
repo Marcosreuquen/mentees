@@ -5,8 +5,26 @@ import { Layout } from "components/layout";
 import { FormContainer } from "components/form/styled";
 import { ToastContainer } from "react-toastify";
 import { ViewHeight } from "./styled";
+import { useEffect, useState } from "react";
 
 export default function MentorPage() {
+  const [token, setToken] = useState("");
+  
+  useEffect(()=>{
+    const token = localStorage.getItem("token") as string;
+    setToken(token)
+  }, []);
+
+  console.log(token);
+  const mentorData = {
+    name: "Ale",
+    email: "ale@gmail.com",
+    category: "Dev",
+    community: "https://apx.school",
+    description: "Me descripción corta.",
+    image: "https://res.cloudinary.com/hcosin/image/upload/v1671209131/1665753_u2phbg.jpg",
+  };
+  
   return (
     <>
       <ToastContainer />
@@ -16,7 +34,10 @@ export default function MentorPage() {
             Mis datos
           </Title>
           <FormContainer>
-            <Form />
+            {!token?
+            <Form /> : 
+            <Form mentorData={mentorData}/>
+            }
           </FormContainer>
         </ViewHeight>
       </Layout>

@@ -83,20 +83,30 @@ export const PrimaryButton = styled.button`
   font-weight: bold;
   cursor: pointer;
 
-  user-select:none;
+  user-select: none;
   text-decoration: none;
   transition-duration: 0.4s;
-  -webkit-transition-duration: 0.4s; 
+  -webkit-transition-duration: 0.4s;
 
   :hover {
-  transition-duration: 0.1s;
-  background-color: #3A3A3A;
-  color:white;
-}
-:active {
-            box-shadow:1px 6px 50px 30px rgba(190, 184, 184, 0.24);
-            transform: translateY(4px);
-        }
+    transition-duration: 0.1s;
+    background-color: #3a3a3a;
+    color: white;
+  }
+  :active {
+    box-shadow: 1px 6px 50px 30px rgba(190, 184, 184, 0.24);
+    transform: translateY(4px);
+  }
+`;
+
+export const DeleteButton = styled(PrimaryButton)`
+  color: var(--rojo);
+  background-color: transparent;
+  border: 1.5px solid var(--rojo);
+
+  :hover {
+    color: var(--negro);
+  }
 `;
 
 export const AlertText = styled.p`
@@ -104,4 +114,28 @@ export const AlertText = styled.p`
   font-weight: 400;
   margin: 5px 0 0 0;
   color: var(--blanco);
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
+`;
+
+interface BulletButtonProps {
+  active?: string;
+}
+
+export const BulletButton = styled.p<BulletButtonProps>`
+  color: ${(props) => (props.active ? "var(--negro)" : "var(--blanco)")};
+  background-color: ${(props) =>
+    props.active ? "var(--blanco)" : "transparent"};
+  cursor: default;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1.5px solid var(--blanco);
+  height: 40px;
+  font-weight: bold;
+  margin: 0;
+  padding: 5px;
 `;

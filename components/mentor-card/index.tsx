@@ -13,11 +13,11 @@ import Card from "react-bootstrap/Card";
 import { useState } from "react";
 
 interface Mentor {
-  name: string;
-  fieldOfExpertise: string;
+  name?: string;
+  fieldOfExpertise?: string;
   description: string;
-  imgUrl: string;
-  community: string;
+  imgUrl?: string;
+  community?: string;
 }
 
 function MentorCard({
@@ -30,7 +30,7 @@ function MentorCard({
   const [toggleDescription, setToggleDescription] = useState(false);
 
   const fullDescription = description;
-  const shortDescription = description.slice(0, 50);
+  const shortDescription = description? description.slice(0, 50) : "";
 
   function handleDescriptionToggleClick() {
     setToggleDescription(!toggleDescription);
@@ -56,10 +56,10 @@ function MentorCard({
         ) : (
           <CardShortDescription>
             <Body size="1rem">{shortDescription}</Body>
-            {
+            {/* {
               description.length > 49? <TextLink onClick={handleDescriptionToggleClick}>leer más</TextLink> : null
 
-            }
+            } */}
           </CardShortDescription>
         )}
         <ComunityButton href={community} target="_blank">
