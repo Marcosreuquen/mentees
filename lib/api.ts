@@ -81,3 +81,9 @@ export function getSavedToken() {
   const token = localStorage.getItem("auth-token");
   return token;
 }
+
+export function deleteToken() {
+  localStorage.removeItem("auth-token");
+
+  return true;
+}

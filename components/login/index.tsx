@@ -19,8 +19,9 @@ export function Login(){
         e.preventDefault()
         const code = e.target.code.value;
         try {
-            getToken(email,code)
-            router.push("/mentor")
+            getToken(email,code).then(()=>{
+                router.push("/mentor")
+            })
         } catch (error) {
             console.log(error);
             
