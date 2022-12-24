@@ -25,7 +25,11 @@ export function runCorsMiddleware(
 }
 
 export function validateBodySchema(schema: any, cb: Function) {
-  return async function (req: NextApiRequest, res: NextApiResponse, authData?:any) {
+  return async function (
+    req: NextApiRequest,
+    res: NextApiResponse,
+    authData?: any
+  ) {
     try {
       await schema.validate(req.body);
       cb(req, res, authData);
@@ -35,7 +39,6 @@ export function validateBodySchema(schema: any, cb: Function) {
   };
 }
 export function validateQuerySchema(schema: any, cb: Function) {
-  
   return async function (req: NextApiRequest, res: NextApiResponse) {
     try {
       await schema.validate(req.query);
@@ -46,23 +49,20 @@ export function validateQuerySchema(schema: any, cb: Function) {
   };
 }
 
-export function authMiddleware(callback:Function): Function{
-  return async function (req: NextApiRequest, res:NextApiResponse){
-    
-    
-    if(!req.headers.authorization){
-      res.status(401).send("No token sended")
-    }else{
-      const token = req.headers.authorization.split(` `)[1]
-      
-      const decoded = decodeToken(token) as any
-      
-      if(decoded){       
-       callback(req, res, decoded)
-  
-      }else{
-       res.status(401).send("Incorrect Token")
+export function authMiddleware(callback: Function): Function {
+  return async function (req: NextApiRequest, res: NextApiResponse) {
+    if (!req.headers.authorization) {
+      res.status(401).send("No token sended");
+    } else {
+      const token = req.headers.authorization.split(` `)[1];
+
+      const decoded = decodeToken(token) as any;
+
+      if (decoded) {
+        callback(req, res, decoded);
+      } else {
+        res.status(401).send("Incorrect Token");
       }
     }
-  }
+  };
 }

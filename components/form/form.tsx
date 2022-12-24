@@ -88,7 +88,7 @@ export default function Form() {
         )
         console.log(res);
 
-        if (res["Mentor successfully created"].id) {
+        if (res.result.mentor.ownerAuthID) {
           toast.success("¡Gracias! Recibimos tu información.", {
             position: toast.POSITION.TOP_CENTER
           });

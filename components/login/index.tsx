@@ -1,5 +1,5 @@
 import { useState } from "react"
-//import { sendCode, getToken } from "lib/api";
+import { sendCode, getToken } from "lib/api";
 import router from "next/router";
 import { Input, Label, PrimaryButton } from "components/form/styled";
 import { FormLogin } from "./styled";
@@ -12,14 +12,14 @@ export function Login(){
         const email = e.target.email.value;
         console.log(email,"envia el email");
         
-        // sendCode(email)
+        sendCode(email)
         setEmail(email)
     }
     async function handlerCodeForm(e:any){
         e.preventDefault()
         const code = e.target.code.value;
         try {
-           // getToken(email,code)
+            getToken(email,code)
             router.push("/mentor")
         } catch (error) {
             console.log(error);

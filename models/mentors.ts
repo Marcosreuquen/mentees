@@ -67,6 +67,8 @@ export class Mentor {
   }
 
   static async searchMentorByAuthId(authID: string) {
+    console.log(authID, "searchmentor");
+
     try {
       const result = await collection.where("ownerAuthID", "==", authID).get();
 
