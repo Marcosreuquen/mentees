@@ -66,9 +66,8 @@ export async function getToken(email: string, code: string) {
     method: "POST",
     body: { code: parseInt(code), email },
   });
-  console.log(data, "token");
 
-  saveToken(JSON.stringify(data));
+  saveToken(data);
   return true;
 }
 

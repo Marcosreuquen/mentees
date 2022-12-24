@@ -1,21 +1,23 @@
 import { PrimaryButton } from 'components/form/styled';
 import { Login } from 'components/login';
 import { useMe } from 'hooks/mentor';
+import router from 'next/router';
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
 export function LoginPopup() {
   const user = useMe()
   const [smShow, setSmShow] = useState(false);
-  const [lgShow, setLgShow] = useState(false);
- 
-  console.log(user, "user");
-  
+   
   return (
     <>
-      <PrimaryButton onClick={() => setSmShow(true)}>
+    {user?<PrimaryButton onClick={()=>{router.push("/mentor")}}>
+      Mi Perfil
+    </PrimaryButton>
+    :
+    <PrimaryButton onClick={() => setSmShow(true)}>
         Quiero ser mentor
-      </PrimaryButton>
+      </PrimaryButton>}
       <Modal 
         size="sm"
         show={smShow}

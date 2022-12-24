@@ -9,6 +9,8 @@ async function getHandler(
   res: NextApiResponse,
   authData: any
 ) {
+  console.log(authData, "data");
+
   try {
     const result = await getMentorData(authData);
     res.status(200).json({ result });
