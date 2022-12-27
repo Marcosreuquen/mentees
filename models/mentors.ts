@@ -32,7 +32,7 @@ export class Mentor {
 
       if (findIfMentorExists.docs.length) {
         return {
-          Message: "Mentor Already created for this user",
+          message: "Mentor Already created for this user",
           mentor: findIfMentorExists.docs[0].data(),
         };
       } else {
@@ -67,8 +67,6 @@ export class Mentor {
   }
 
   static async searchMentorByAuthId(authID: string) {
-    console.log(authID, "searchmentor");
-
     try {
       const result = await collection.where("ownerAuthID", "==", authID).get();
 
