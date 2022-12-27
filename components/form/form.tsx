@@ -20,43 +20,65 @@ import Image from "next/image";
 import css from "./index.module.css";
 import AvatarSvg from "public/avatar.svg";
 import { convertBase64 } from "lib/base64";
-import { createMentor, updateMentor } from "lib/api";
+import { createMentor, updateMentor, deleteMentor } from "lib/api";
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
+// schema with required image for new mentor data
+const schemaNewMentor = yup.object().shape({
+  image: yup
+    .mixed()
+    .test("required", " · Debes selecionar una foto", (value) => {
+      return value && value.length;
+    })
+    .test(
+      "fileSize",
+      " · El archivo es demasiado grande.",
+      (value, context) => {
+        return value && value[0] && value[0].size <= 2000000;
+      }
+    )
+    .test("type", "· El archivo debe ser .jpg o .jpeg.", function (value) {
+      return value && value[0] && value[0].type === "image/jpeg";
+    }),
+  name: yup
+    .string()
+    .min(2, " · El nombre debe contener al menos 2 caracteres.")
+    .required(" · Debes ingresar tu nombre."),
+  community: yup.string().url(" · Debes ingresar una url válida para tu comunidad.").required(" · Debes ingresar alguna comunidad."),
+  description: yup.string().required(" · Agrega una breve descripción."),
+  fieldOfExpertise: yup
+    .string()
+    .required(" · Indica en que area deseas mentorear."),
+  email: yup
+    .string()
+    .email(" · El email debe ser válido.")
+    .required(" · Debes ingresar tu email."),
+});
+
+// schema with non-requiered image for existing mentor with image
+const schemaMentor = yup.object().shape({
+  image: yup
+    .string().nullable(),
+  name: yup
+    .string()
+    .min(2, " · El nombre debe contener al menos 2 caracteres.")
+    .required(" · Debes ingresar tu nombre."),
+  community: yup.string().url(" · Debes ingresar una url válida para tu comunidad.").required(" · Debes ingresar alguna comunidad."),
+  description: yup.string().required(" · Agrega una breve descripción."),
+  fieldOfExpertise: yup
+    .string()
+    .required(" · Indica en que area deseas mentorear."),
+  email: yup
+    .string()
+    .email(" · El email debe ser válido.")
+    .required(" · Debes ingresar tu email."),
+});
+
 export default function Form({mentorData}: {mentorData?:MentorData}) {
-  const schema = yup.object().shape({
-    image: yup
-      .mixed()
-      .test("required", " · Debes selecionar una foto", (value) => {
-        return value && value.length;
-      })
-      .test(
-        "fileSize",
-        " · El archivo es demasiado grande.",
-        (value, context) => {
-          return value && value[0] && value[0].size <= 2000000;
-        }
-      )
-      .test("type", "· El archivo debe ser .jpg o .jpeg.", function (value) {
-        return value && value[0] && value[0].type === "image/jpeg";
-      }),
-    name: yup
-      .string()
-      .min(2, " · El nombre debe contener al menos 2 caracteres.")
-      .required(" · Debes ingresar tu nombre."),
-    community: yup.string().url(" · Debes ingresar una url válida para tu comunidad.").required(" · Debes ingresar alguna comunidad."),
-    description: yup.string().required(" · Agrega una breve descripción."),
-    fieldOfExpertise: yup
-      .string()
-      .required(" · Indica en que area deseas mentorear."),
-    email: yup
-      .string()
-      .email(" · El email debe ser válido.")
-      .required(" · Debes ingresar tu email."),
-  });
   const [userImageBase64, setUserImageBase64] = useState(null as any);
-  
+  const schema = getSchema(mentorData, schemaMentor, schemaNewMentor);
+
   const {
     register,
     formState: { errors },
@@ -67,8 +89,8 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
   });
 
 
+  // setting default values if mentor user already exists
   useEffect(()=>{
-    // setting default values if mentor user already exist
     {!mentorData? null : 
       setValue("name", mentorData.name as string)
     }
@@ -97,8 +119,9 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
     setUserImageBase64(convertedBase64)
   };
 
-  function handleDeleteAccount(e:any) {
+  async function handleDeleteAccount(e:any) {
     e.preventDefault();
+    await deleteMentor(mentorData?.ownerAuthID as string);
     console.log("DELETE");
   }
 
@@ -106,7 +129,7 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
     data.image = userImageBase64;
 
     if (mentorData) {
-      try {
+      try {        
         const res = await updateMentor( {
           name: data.name,
           category: data.fieldOfExpertise,
@@ -114,7 +137,7 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
           description: data.description,
           email: data.email,
           image: data.image,
-        })
+        }, mentorData.ownerAuthID)
 
         if (res.result.newAuth.ownerAuthID) {
           toast.success("Se ha actualizado tu información.", {
@@ -270,4 +293,15 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
         </ButtonsContainer>
     </FormMentor>
   );
+}
+
+// auxiliar to use schema validation base on mentor data
+// if mentor exists returns schema without image requiered
+// if mentor doesn't exists return schema with image requiered
+const getSchema = (mentorData: any, schema1:any, schema2:any)=> {
+  if (mentorData) {
+    return schema1
+  } else {
+    return schema2
+  }
 }

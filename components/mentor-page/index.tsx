@@ -19,11 +19,7 @@ export default function MentorPage() {
             Mis datos
           </Title>
           <FormContainer>
-            {
-            !mentor?
-            <Form /> : 
-            <Form mentorData={mentor.result}/>
-            }
+            <Form mentorData={!mentor? "" : mentor.result}/>
           </FormContainer>
         </ViewHeight>
       </Layout>

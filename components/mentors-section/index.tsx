@@ -2,7 +2,7 @@ import MentorCard from "components/mentor-card";
 import { useMentors, usePagination } from "hooks/mentor";
 import { BulletButton, PrimaryButton } from "components/form/styled";
 import { useEffect, useState } from "react";
-import { ButtonsContainer, MentorsContainer, CardsContainer } from "./styled";
+import { ButtonsContainer, MentorsContainer, CardsContainer, PaginationContainer } from "./styled";
 
 export const MentorsSection = () => {
   const [pagination, setPagination] = useState({ limit: 3, offset: 0 } as any);
@@ -60,9 +60,11 @@ export const MentorsSection = () => {
       </CardsContainer>
       <ButtonsContainer>
         <PrimaryButton onClick={handlePrevClick}> Prev </PrimaryButton>
-        {paginacion.map((e) => {
-          return <BulletButton active={e==pageIndicator? "active" : ""} key={e}>{e}</BulletButton>;
-        })}
+        <PaginationContainer>
+          {paginacion.map((e) => {
+            return <BulletButton active={e==pageIndicator? "active" : ""} key={e}>{e}</BulletButton>;
+          })}
+        </PaginationContainer>
         <PrimaryButton onClick={handleSigClick}> Sig </PrimaryButton>
       </ButtonsContainer>
     </MentorsContainer>

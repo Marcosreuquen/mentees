@@ -24,3 +24,10 @@ export const ButtonsContainer = styled.div`
   flex-direction: row;
   column-gap: 15px;
 `
+
+export const PaginationContainer = styled.div`
+  display: flex;
+  column-gap: 5px;
+  max-width: 150px;
+  overflow: hidden;
+`
