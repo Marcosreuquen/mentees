@@ -39,10 +39,10 @@ async function getHandler(req: NextApiRequest, res: NextApiResponse) {
 }
 
 const handler = methods({
-  post: validateBodySchema(mentorBodyForCreate, postHandler),
+  post: authMiddleware(validateBodySchema(mentorBodyForCreate, postHandler)),
   get: getHandler,
 });
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  await runCorsMiddleware(req, res, authMiddleware(handler));
+  await runCorsMiddleware(req, res, handler);
 };

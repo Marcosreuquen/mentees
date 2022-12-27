@@ -5,7 +5,7 @@ import Cors from "cors";
 import { Auth } from "models/auth";
 
 const cors = Cors({
-  methods: ["POST", "GET", "PATCH", "HEAD", "OPTIONS"],
+  methods: ["POST", "GET", "PATCH", "HEAD", "OPTIONS", "DELETE"],
 });
 
 export function runCorsMiddleware(

@@ -5,8 +5,11 @@ import { Layout } from "components/layout";
 import { FormContainer } from "components/form/styled";
 import { ToastContainer } from "react-toastify";
 import { ViewHeight } from "./styled";
+import { useMe } from "hooks/mentor";
 
 export default function MentorPage() {
+  const mentor = useMe()
+  
   return (
     <>
       <ToastContainer />
@@ -16,7 +19,7 @@ export default function MentorPage() {
             Mis datos
           </Title>
           <FormContainer>
-            <Form />
+            <Form mentorData={!mentor? "" : mentor.result}/>
           </FormContainer>
         </ViewHeight>
       </Layout>
