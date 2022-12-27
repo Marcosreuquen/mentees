@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Body } from "UI/text";
 
 export const FormMentor = styled.form`
   max-width: 540px;

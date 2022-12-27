@@ -5,5 +5,6 @@ type MentorData = {
   community: string;
   description: string;
   image: string;
-  ownerAuthID:string
+  ownerAuthID:string,
+  id: string
 };

@@ -15,7 +15,8 @@ export const Title = styled.h1<LargeProps>`
   `;
 
 interface LargeProps {
-  margin?: string
+  margin?: string;
+  color?: string;
 }
 
 export const Large = styled.p<LargeProps>`
@@ -24,7 +25,7 @@ export const Large = styled.p<LargeProps>`
   font-size: 1.2rem;
   line-height: 30px;
   text-align: center;
-  color: var(--blanco);
+  color: ${props => props.color == "black"? "var(--negro)" : "var(--blanco)"};
   margin: ${props => props.margin || "0"};
   `;
 

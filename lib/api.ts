@@ -53,14 +53,14 @@ export async function createMentor(data: MentorData) {
 }
 
 export async function updateMentor(data: MentorData, id: string) {
-  return fetchAPI("/mentor?id=" + id, {
+  return fetchAPI("/mentor/" + id, {
     method: "PATCH",
     body: { ...data },
   });
 }
 
 export async function deleteMentor(id: string) {
-  return fetchAPI("/mentor?id=" + id, {
+  return fetchAPI("/mentor/" + id, {
     method: "DELETE",
   });
 }

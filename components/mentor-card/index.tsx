@@ -56,10 +56,10 @@ function MentorCard({
         ) : (
           <CardShortDescription>
             <Body size="1rem">{shortDescription}</Body>
-            {/* {
+             {
               description.length > 49? <TextLink onClick={handleDescriptionToggleClick}>leer más</TextLink> : null
 
-            } */}
+            } 
           </CardShortDescription>
         )}
         <ComunityButton href={community} target="_blank">
