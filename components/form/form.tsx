@@ -137,13 +137,13 @@ export default function Form({mentorData}: {mentorData?:MentorData}) {
           description: data.description,
           email: data.email,
           image: data.image,
-        }, mentorData.ownerAuthID)
+        }, mentorData.ownerAuthID);
 
         if (res.result.newAuth.ownerAuthID) {
           toast.success("Se ha actualizado tu información.", {
-            position: toast.POSITION.TOP_CENTER
-          });
-        } 
+              position: toast.POSITION.TOP_CENTER
+            });
+          };
       } catch (e) {
         console.log(e);
       }

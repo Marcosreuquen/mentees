@@ -29,7 +29,6 @@ export async function getAllMentors(limit: number, offset: number) {
 export async function getMentorData(authData: any) {
   try {
     const result = await Mentor.searchMentorByAuthId(authData.id.id);
-    // console.log(result, "res get mentor");
 
     return result.docs[0].data();
   } catch (error) {

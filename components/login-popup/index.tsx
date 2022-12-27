@@ -1,4 +1,4 @@
-import { PrimaryButton } from 'components/form/styled';
+import { LogoutButton, PrimaryButton } from 'components/form/styled';
 import { Login } from 'components/login';
 import { useMe } from 'hooks/mentor';
 import { deleteToken } from 'lib/api';
@@ -18,17 +18,19 @@ export function LoginPopup() {
       <PrimaryButton onClick={()=>{router.push("/mentor")}} >
       Mi Perfil
     </PrimaryButton>
-    <Button style={{
-          backgroundColor: "var(--gris)",
-          border: "none",
-          margin: "0 5px"
-    }} onClick={()=>{
+    <LogoutButton
+    //  style={{
+    //       backgroundColor: "var(--gris)",
+    //       border: "none",
+    //       margin: "0 5px"
+    // }} 
+    onClick={()=>{
       deleteToken()
       router.push("/").then(()=>{
         router.reload()
       })}}>
       Logout
-    </Button>
+    </LogoutButton>
       </div>
     :
     <PrimaryButton onClick={() => setSmShow(true)}>

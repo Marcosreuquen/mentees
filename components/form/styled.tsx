@@ -109,6 +109,17 @@ export const DeleteButton = styled(PrimaryButton)`
   }
 `;
 
+export const LogoutButton = styled(PrimaryButton)`
+background-color: var(--gris);
+border: none;
+margin: 0 5px;
+
+:hover {
+  transition-duration: 0.1s;
+  background-color:#ccc1c1; ;
+  color:#3A3A3A;;
+}
+`
 export const AlertText = styled.p`
   font-size: 12px;
   font-weight: 400;
