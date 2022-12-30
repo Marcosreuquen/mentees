@@ -81,7 +81,7 @@ const schemaMentor = yup.object().shape({
     .required(" · Debes ingresar tu email."),
 });
 
-export default function Form({ mentorData }: { mentorData?: MentorData }) {
+export default function Form({ mentorData, mutate }: { mentorData?: MentorData, mutate?: any }) {
   const [userImageBase64, setUserImageBase64] = useState(null as any);
   const schema = getSchema(mentorData, schemaMentor, schemaNewMentor);
   const router = useRouter();
@@ -146,6 +146,7 @@ export default function Form({ mentorData }: { mentorData?: MentorData }) {
 
         setTimeout(() => {
           deleteToken();
+          mutate()
           router.push("/");
         }, 5000);
       }

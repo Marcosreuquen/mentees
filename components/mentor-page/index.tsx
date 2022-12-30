@@ -6,9 +6,10 @@ import { FormContainer } from "components/form/styled";
 import { ToastContainer } from "react-toastify";
 import { ViewHeight } from "./styled";
 import { useMe } from "hooks/mentor";
+import { useEffect, useState } from "react";
 
 export default function MentorPage() {
-  const mentor = useMe()
+  const {data, mutate} = useMe();
   
   return (
     <>
@@ -19,7 +20,7 @@ export default function MentorPage() {
             Mis datos
           </Title>
           <FormContainer>
-            <Form mentorData={!mentor? "" : mentor.result}/>
+            <Form mentorData={!data? "" : data.result} mutate={mutate}/>
           </FormContainer>
         </ViewHeight>
       </Layout>

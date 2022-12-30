@@ -1,20 +1,27 @@
 import { LogoutButton, PrimaryButton } from 'components/form/styled';
 import { Login } from 'components/login';
-import { useMe } from 'hooks/mentor';
 import { deleteToken } from 'lib/api';
 import router from 'next/router';
-import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
+import { getSavedToken } from 'lib/api';
 
 export function LoginPopup() {
-  const user = useMe()
   const [smShow, setSmShow] = useState(false);
-  console.log(user, "user");
+  const [token, setToken] = useState("" as any);
+
+  useEffect(()=>{
+    const token = getSavedToken(); 
+    if (token) {
+      setToken(token)
+    } else {
+      setToken(undefined)
+    }
+  }, [])
   
   return (
     <>
-    {user?<div style={{display:"flex"}}>
+    {token?<div style={{display:"flex"}}>
       <PrimaryButton onClick={()=>{router.push("/mentor")}} >
       Mi Perfil
     </PrimaryButton>
