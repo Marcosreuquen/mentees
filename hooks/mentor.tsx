@@ -31,7 +31,7 @@ const getRange = (start: number, end: number) => {
 };
 
 export function useMe() {
-  const { data, error } = useSWR("/me", fetchAPI);
+  const { data, error, mutate } = useSWR("/me", fetchAPI);
 
-  return data;
+  return {data, error, mutate};
 }
