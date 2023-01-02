@@ -26,15 +26,9 @@ export function LoginPopup() {
       Mi Perfil
     </PrimaryButton>
     <LogoutButton
-    //  style={{
-    //       backgroundColor: "var(--gris)",
-    //       border: "none",
-    //       margin: "0 5px"
-    // }} 
     onClick={()=>{
       deleteToken()
       router.push("/").then(()=>{
-        router.reload()
       })}}>
       Logout
     </LogoutButton>
