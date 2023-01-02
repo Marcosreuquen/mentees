@@ -1,4 +1,5 @@
 import { firestore } from "lib/db/firestore";
+import { algoliaClient } from "lib/algolia";
 
 const collection = firestore.collection("mentors");
 
@@ -36,10 +37,15 @@ export class Mentor {
           mentor: findIfMentorExists.docs[0].data(),
         };
       } else {
-        const newAuthSnap = await collection.add(data);
-        const newAuth = new Mentor(newAuthSnap.id, data);
-        newAuth.data = data;
-        return { message: "Mentor Created", newAuth };
+        const newMentorSnap = await collection.add(data);
+        const newMentor = new Mentor(newMentorSnap.id, data);
+        newMentor.data = data;
+        
+        const algoliaIndex = algoliaClient.initIndex("Mentors")
+        
+        await algoliaIndex.saveObject({...data, objectID:newMentorSnap.id})
+        
+        return { message: "Mentor Created", newMentor };
       }
     } catch (error) {
       throw error;
