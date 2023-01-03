@@ -87,6 +87,18 @@ export class Mentor {
       throw error;
     }
   }
+  static async searchMentors(query: string, limit:number, offset:number) {
+    try {
+      const result = await algoliaIndexMentors.search(query, {
+        offset,
+        length:limit
+      })
+
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
   exposeData() {
     return { id: this.id, ...this.data };
   }
