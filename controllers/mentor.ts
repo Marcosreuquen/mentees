@@ -52,3 +52,22 @@ export async function deleteMentor(id: string) {
     throw error;
   }
 }
+export async function searchMentors(
+  query: string,
+  limit: string,
+  offset: string
+) {
+  try {
+    const limitToNumber = parseInt(limit);
+    const offsetToNumber = parseInt(offset);
+    const results = await Mentor.searchMentors(
+      query,
+      limitToNumber,
+      offsetToNumber
+    );
+
+    return results;
+  } catch (error) {
+    throw error;
+  }
+}
