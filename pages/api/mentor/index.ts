@@ -25,11 +25,11 @@ async function getHandler(req: NextApiRequest, res: NextApiResponse) {
       paginationObject.finalOffset
     );
     res.status(200).json({
-      result: result.allMentors,
+      result: result.result.hits,
       pagination: {
-        total: result.size,
-        limit: paginationObject.finalLimit,
-        offset: paginationObject.finalOffset,
+        total: result.result.nbHits,
+        limit: result.result.length,
+        offset: result.result.offset,
       },
     });
   } catch (error) {

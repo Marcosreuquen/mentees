@@ -14,13 +14,9 @@ export async function createNewMentor(data: MentorData, authData: any) {
 }
 export async function getAllMentors(limit: number, offset: number) {
   try {
-    const snapshot = await Mentor.getAllMentors(limit, offset);
+    const result = await Mentor.getAllMentors(limit, offset);
 
-    const allMentors = snapshot.allMentors.docs.map((doc) =>
-      new Mentor(doc.id, doc.data()).exposeData()
-    );
-
-    return { allMentors, size: snapshot.size.count };
+    return { result };
   } catch (error) {
     throw error;
   }
