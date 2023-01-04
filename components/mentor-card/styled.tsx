@@ -43,6 +43,18 @@ export const CardImg = styled(Card.Img)`
   max-height: 160px;
   object-fit: cover;
 `;
+
+export const CardImgPopUp = styled(CardImg)`
+max-height: 210px;
+max-width: 70%;
+border-radius: 15px;
+`
+export const CardImgPopUpConteiner = styled.div`
+display: flex;
+justify-content: center;
+height: 210px;
+align-items: center;
+`
 export const ComunityButton = styled.a`
   color: var(--blanco);
   background-color: transparent;
@@ -67,6 +79,13 @@ export const ComunityButton = styled.a`
   }
 `;
 
+export const ComunityButtonPopUp = styled(ComunityButton)`
+:hover {
+    transition-duration: 0.1s;
+    background-color: var(--gris);
+    color: var(--blanco);
+  }
+`
 export const TextLink = styled.p`
     color: var(--link);
     cursor: pointer;
