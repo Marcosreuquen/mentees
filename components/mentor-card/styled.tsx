@@ -82,7 +82,7 @@ export const ComunityButton = styled.a`
 export const ComunityButtonPopUp = styled(ComunityButton)`
 :hover {
     transition-duration: 0.1s;
-    background-color: black;
+    background-color: var(--gris);
     color: var(--blanco);
   }
 `

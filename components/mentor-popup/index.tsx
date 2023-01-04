@@ -33,7 +33,7 @@ return (
                 {name}
             </Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{backgroundColor: "var(--gris)", height: "499px"}}>
+        <Modal.Body style={{background: "var(--background-gradient_gris)", height: "500px"}}>
             <div>
                 <CardImgPopUpConteiner >
                     <CardImgPopUp variant="top" src={imgUrl} />   
