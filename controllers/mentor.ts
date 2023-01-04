@@ -1,4 +1,3 @@
-import exp from "constants";
 import { uploadImgToCloudinary } from "lib/cloudinary";
 import { Mentor } from "models/mentors";
 
@@ -12,9 +11,10 @@ export async function createNewMentor(data: MentorData, authData: any) {
     throw error;
   }
 }
-export async function getAllMentors(limit: number, offset: number) {
+
+export async function getAllMentors(limit: number, page: number) {
   try {
-    const result = await Mentor.getAllMentors(limit, offset);
+    const result = await Mentor.getAllMentors(limit, page);
 
     return { result };
   } catch (error) {
@@ -54,16 +54,15 @@ export async function deleteMentor(id: string) {
 }
 export async function searchMentors(
   query: string,
-  limit: string,
-  offset: string
+  hitsPerPage: string,
+  page: string
 ) {
   try {
-    const limitToNumber = parseInt(limit);
-    const offsetToNumber = parseInt(offset);
+    const limitToNumber = parseInt(hitsPerPage);
     const results = await Mentor.searchMentors(
       query,
       limitToNumber,
-      offsetToNumber
+      page
     );
 
     return results;

@@ -1,22 +1,22 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { runCorsMiddleware } from "lib/middlewares";
 import { searchMentors } from "controllers/mentor";
-import { setLimitsAndOffset } from "lib/limits";
 
 const methods = require("micro-method-router");
 
 async function getHandler(req: NextApiRequest, res: NextApiResponse) {
-  const { query, limit, offset } = req.query as any;
+  const { q, hitsPerPage, page } = req.query as any;
 
-  const finalLimitAndOffset = setLimitsAndOffset(limit, offset)
   try {
-    const results = await searchMentors(query, finalLimitAndOffset.finalLimit, finalLimitAndOffset.finalOffset);
+    const results = await searchMentors(q, hitsPerPage, page);
+
     res.json({
       results: results.hits,
       pagination: {
-        total: results.nbHits,
-        limit: results.length,
-        offset: results.offset,
+      total: results.nbHits,
+      hitsPerPage: results.hitsPerPage,
+      nbPages: results.nbPages,
+      page: results.page,
       },
     });
   } catch (error) {

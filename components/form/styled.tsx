@@ -142,7 +142,7 @@ export const BulletButton = styled.p<BulletButtonProps>`
   color: ${(props) => (props.active ? "var(--negro)" : "var(--blanco)")};
   background-color: ${(props) =>
     props.active ? "var(--blanco)" : "transparent"};
-  cursor: default;
+  cursor: ${(props) => (props.active ? "default" : "pointer")};
   font-size: 16px;
   border-radius: 6px;
   border: 1.5px solid var(--blanco);
