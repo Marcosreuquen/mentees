@@ -4,13 +4,10 @@ import {
   CardBody,
   CardImg,
   CardSubtitle,
-  CardDescription,
   CardShortDescription,
   ComunityButton,
-  TextLink,
 } from "./styled";
 import Card from "react-bootstrap/Card";
-import { useState } from "react";
 import { MentorPopup } from "components/mentor-popup";
 
 
@@ -29,15 +26,7 @@ function MentorCard({
   imgUrl,
   community,
 }: Mentor) {  
-  // const [toggleDescription, setToggleDescription] = useState(false);
-  
-
-  // const fullDescription = description;
   const shortDescription = description? description.slice(0, 50) : "";
-
-  // function handleDescriptionToggleClick() {
-  //   setToggleDescription(!toggleDescription);
-  // }
 
   return (
     <CardContainer style={{ width: "18rem" }}>
@@ -57,22 +46,6 @@ function MentorCard({
         <CardShortDescription>
             <Body size="1rem">{shortDescription}</Body>
         </CardShortDescription>
-        {/* {toggleDescription ? (
-          <>
-            <CardDescription>
-              <Body size="1rem">{fullDescription}</Body>{" "}
-              <TextLink onClick={handleDescriptionToggleClick}>leer menos</TextLink>
-            </CardDescription>
-          </>
-        ) : (
-          <CardShortDescription>
-            <Body size="1rem">{shortDescription}</Body>
-            {
-              description.length > 49? <TextLink onClick={handleDescriptionToggleClick}>leer más</TextLink> : null
-
-            } 
-          </CardShortDescription>
-        )} */}
         <ComunityButton href={community} target="_blank">
           Ir a la comunidad
         </ComunityButton>
