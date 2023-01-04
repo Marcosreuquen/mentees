@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { runCorsMiddleware, validateBodySchema, authMiddleware } from "lib/middlewares";
-import { setLimitsAndOffset } from "lib/limits";
 import { createNewMentor, getAllMentors } from "controllers/mentor";
 import { mentorBodyForCreate } from "lib/schemas";
 const methods = require("micro-method-router");
@@ -13,23 +12,22 @@ async function postHandler(req: NextApiRequest, res: NextApiResponse, authData:a
     res.status(400).json({ error });
   }
 }
+
 async function getHandler(req: NextApiRequest, res: NextApiResponse) {
-  const paginationObject = setLimitsAndOffset(
-    req.query.limit,
-    req.query.offset
-  );
+  const { hitsPerPage, page } = req.query as any;
 
   try {
     const result = await getAllMentors(
-      paginationObject.finalLimit,
-      paginationObject.finalOffset
+      hitsPerPage,
+      page
     );
     res.status(200).json({
       result: result.result.hits,
       pagination: {
         total: result.result.nbHits,
-        limit: result.result.length,
-        offset: result.result.offset,
+        page: result.result.page,
+        hitsPerPage: result.result.hitsPerPage,
+        nbPages: result.result.nbPages
       },
     });
   } catch (error) {

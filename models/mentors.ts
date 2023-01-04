@@ -50,16 +50,14 @@ export class Mentor {
       throw error;
     }
   }
-  static async getAllMentors(limit: number, offset: number) {
+
+  static async getAllMentors(limit: number, page: number) {
     try {
     
       const result= await algoliaIndexMentors.search("", {
-        offset,
-        length:limit
+        page: page ? page  : 0,
+        hitsPerPage: page ? limit : 3,
       })
-
-      console.log(result);
-      
 
       return result
       
@@ -67,6 +65,7 @@ export class Mentor {
       throw error;
     }
   }
+
   static async deleteOneMentor(id: string) {
     try {
       const deleteMentor = collection.doc(id);
@@ -87,13 +86,14 @@ export class Mentor {
       throw error;
     }
   }
-  static async searchMentors(query: string, limit:number, offset:number) {
+  
+  static async searchMentors(query: string, limit:number, page: string) {
     try {
       const result = await algoliaIndexMentors.search(query, {
-        offset,
-        length:limit
+        page: page ? parseInt(page as string) : 0,
+        hitsPerPage: page ? limit : 3,
       })
-
+      
       return result;
     } catch (error) {
       throw error;

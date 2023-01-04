@@ -1,54 +1,106 @@
 import MentorCard from "components/mentor-card";
-import { useMentors, usePagination } from "hooks/mentor";
+import { useMentors, getPageBulletArray } from "hooks/mentor";
 import { BulletButton, PrimaryButton } from "components/form/styled";
 import { useEffect, useState } from "react";
-import { ButtonsContainer, MentorsContainer, CardsContainer, PaginationContainer } from "./styled";
+import {
+  ButtonsContainer,
+  MentorsContainer,
+  CardsContainer,
+  PaginationContainer,
+} from "./styled";
+import { useRouter } from "next/router";
 
 export const MentorsSection = () => {
-  const [pagination, setPagination] = useState({ limit: 3, offset: 0 } as any);
-  const [initialPagination, setInitialPagination] = useState({} as any);
-  const [pageIndicator, setPageIndicator] = useState(1)
+  const router = useRouter();
+  const query = router.query;
 
-  const mentors = useMentors(pagination);
+  const [initialPagination, setInitialPagination] = useState({
+    hitsPerPage: 3,
+    page: 0,
+    total: 0,
+    nbPages: 0,
+  });
+  const [nbPages, setNbPages] = useState([] as number[]);
 
-  const paginacion = usePagination(
-    initialPagination ? initialPagination.total : 0,
-    initialPagination ? initialPagination.limit : 0
-  );
+  const mentors = useMentors(query);
+  useEffect(() => {
+    router.push("/?hitsPerPage=3&page=0");
+  }, []);
 
   useEffect(() => {
-    setInitialPagination(mentors.pagination);
+    setInitialPagination(mentors?.data?.pagination);
   }, [mentors]);
 
-  function handlePrevClick(e: any) {
-    const offset = initialPagination.offset - 3;
+  useEffect(() => {
+    const nbPages = getPageBulletArray(initialPagination?.nbPages);
+    setNbPages(nbPages);
+  }, [initialPagination]);
 
-    if (offset < 0) {
-      return;
-    } else {
-      setPagination({ limit: 3, offset: offset });
-      setPageIndicator(pageIndicator - 1 )
-    }
-  }
-  
-  function handleSigClick() {
-    const offset = initialPagination.offset + 3;
+  function handlePreviousClick(e: any) {
+    let pageNumber = parseInt(query.page as string);
+
+    if (pageNumber == 0) {
+      return
+    };
+
+    pageNumber -= 1;
+
+    setInitialPagination(initialPagination);
+
+    let pageNumberToString = pageNumber.toString();
+
+    query.page = pageNumberToString;
     
-    if (offset > initialPagination.total) {
+    router.push({
+      pathname: router.pathname,
+      query: { hitsPerPage: query.hitsPerPage, page: query.page },
+    }, undefined, { scroll: false });
+  }
+
+  function handleNextClick() {
+    let pageNumber = parseInt(query.page as string);
+
+    pageNumber += 1;
+    if (pageNumber >= initialPagination.nbPages) {
       return;
-    } else {
-      setPagination({ limit: 3, offset: offset });
-      setPageIndicator(pageIndicator + 1)
     }
+
+    setInitialPagination(initialPagination);
+
+    let pageNumberToString = pageNumber.toString();
+
+    query.page = pageNumberToString;
+
+    router.push({
+      pathname: router.pathname,
+      query: { hitsPerPage: query.hitsPerPage, page: query.page },
+    }, undefined, { scroll: false });
+  }
+
+  function handleBulletClick(e: any) {
+    let pageNumber = parseInt(query.page as string) + 1;
+    const bulletNumber = e.target.innerText;
+
+    if (pageNumber.toString() == bulletNumber) {
+      return;
+    }
+
+    const newPage = parseInt(bulletNumber) - 1;
+    query.page = newPage.toString();
+    
+    router.push({
+      pathname: router.pathname,
+      query: { hitsPerPage: query.hitsPerPage, page: query.page },
+    }, undefined, { scroll: false });
   }
 
   return (
     <MentorsContainer>
       <CardsContainer>
-        {mentors.result?.map((m: any) => {
+        {mentors?.data?.result?.map((m: any) => {
           return (
             <MentorCard
-              key={m.id}
+              key={m.objectID}
               name={m.name}
               fieldOfExpertise={m.category}
               description={m.description}
@@ -59,13 +111,21 @@ export const MentorsSection = () => {
         })}
       </CardsContainer>
       <ButtonsContainer>
-        <PrimaryButton onClick={handlePrevClick}> Prev </PrimaryButton>
+        <PrimaryButton onClick={handlePreviousClick}> Prev </PrimaryButton>
         <PaginationContainer>
-          {paginacion.map((e) => {
-            return <BulletButton active={e==pageIndicator? "active" : ""} key={e}>{e}</BulletButton>;
+          {nbPages?.map((e: any) => {
+            return (
+              <BulletButton
+                onClick={handleBulletClick}
+                active={e - 1 == parseInt(query.page as string) ? "active" : ""}
+                key={e}
+              >
+                {e}
+              </BulletButton>
+            );
           })}
         </PaginationContainer>
-        <PrimaryButton onClick={handleSigClick}> Sig </PrimaryButton>
+        <PrimaryButton onClick={handleNextClick}> Sig </PrimaryButton>
       </ButtonsContainer>
     </MentorsContainer>
   );
