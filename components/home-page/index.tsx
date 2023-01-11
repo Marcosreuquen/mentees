@@ -1,9 +1,10 @@
 import { Layout } from "components/layout";
 import { ToastContainer } from "react-toastify";
 import { Large, Title } from "UI/text";
-import css from "styles/index.module.css";
 import { SearchBar } from "components/search-bar";
 import { MentorsSection } from "components/mentors-section";
+import { HashtagsSection } from "components/hashtags";
+import css from "styles/index.module.css";
 
 export const HomePage = () => {
     return <>
@@ -23,6 +24,7 @@ export const HomePage = () => {
               Mentores
             </Title>
             <SearchBar className={css.searchBar}/>
+            <HashtagsSection className={css.hashtagsSection}/>
             <MentorsSection />
           </Layout>
         </>
