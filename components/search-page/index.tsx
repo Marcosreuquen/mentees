@@ -12,6 +12,8 @@ import { ButtonsContainer, PrimaryButton } from "components/form/styled";
 import { BulletButton } from "components/form/styled";
 import { useEffect, useState } from "react";
 import { getPageBulletArray } from "hooks/mentor";
+import { NoResultsMessage } from "./styled";
+import { Body } from "UI/text";
 
 export const SearchPage = () => {
   const router = useRouter();
@@ -84,7 +86,8 @@ export const SearchPage = () => {
       <SearchBar query={query.q as string}/>
       <MentorsContainer>
         <SearchCardsContainer>
-          {searchResults?.data?.results.map((m: any) => {
+          {searchResults?.data?.results.length?
+          searchResults?.data?.results.map((m: any) => {
             return (
               <MentorCard
                 key={m.objectID}
@@ -95,16 +98,24 @@ export const SearchPage = () => {
                 community={m.community}
               />
             );
-          })}
+          }) : 
+          <NoResultsMessage>
+            <Body>No encontramos resultados con este criterio de busqueda</Body>
+            <Body>Intentá con palabras similares</Body>
+          </NoResultsMessage>
+        }
+
         </SearchCardsContainer>
         <ButtonsContainer>
-          <PrimaryButton onClick={handlePreviousClick}> Prev </PrimaryButton>
           <PaginationContainer>
             {nbPages?.map((e: any) => {
-              return <BulletButton onClick={handleBulletClick} active={e - 1 == parseInt(pageIndicator as string) ? "active" : ""} key={e}>{e}</BulletButton>;
+              return <>
+                <PrimaryButton onClick={handlePreviousClick}> Prev </PrimaryButton>
+                <BulletButton onClick={handleBulletClick} active={e - 1 == parseInt(pageIndicator as string) ? "active" : ""} key={e}>{e}</BulletButton>
+                <PrimaryButton onClick={handleNextClick}> Sig </PrimaryButton>
+              </>
             })}
           </PaginationContainer>
-          <PrimaryButton onClick={handleNextClick}> Sig </PrimaryButton>
         </ButtonsContainer>
       </MentorsContainer>
     </Layout>
