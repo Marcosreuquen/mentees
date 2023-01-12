@@ -6,7 +6,6 @@ import { FormContainer } from "components/form/styled";
 import { ToastContainer } from "react-toastify";
 import { ViewHeight } from "./styled";
 import { useMe } from "hooks/mentor";
-import { useEffect, useState } from "react";
 
 export default function MentorPage() {
   const {data, mutate} = useMe();
