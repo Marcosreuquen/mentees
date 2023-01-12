@@ -5,6 +5,7 @@ import { PrimaryButton } from "components/form/styled";
 import { useForm } from "react-hook-form";
 import { FormContainer } from "./styled";
 import { toast } from "react-toastify";
+import "styles/toast.css";
 import "react-toastify/dist/ReactToastify.css";
 import { sendSuggestion } from "lib/api";
 import { useRouter } from "next/router";
