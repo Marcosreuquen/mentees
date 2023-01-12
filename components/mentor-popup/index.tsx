@@ -26,14 +26,14 @@ return (
         size="lg"
         show={lgShow}
         onHide={() => setLgShow(false)}
-        aria-labelledby="example-modal-sizes-title-lg"
+        contentClassName="mentor-popup-conteiner"
     >
-        <Modal.Header style={{backgroundColor: "var(--gris)", color:"white"}} closeButton>
-            <Modal.Title style={{color:"white"}} id="example-modal-sizes-title-lg">
+        <Modal.Header style={{backgroundColor: "var(--gris)", color:"white", borderBottom:"none"}} closeButton>
+            <Modal.Title style={{color:"white", fontSize: "40px", margin: "10px 0"}} id="example-modal-sizes-title-lg">
                 {name}
             </Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{background: "var(--background-gradient_gris)", height: "500px"}}>
+        <Modal.Body style={{background: "var(--background-gradient_gris)", height: "500px", border:"none"}}>
             <div>
                 <CardImgPopUpConteiner >
                     <CardImgPopUp variant="top" src={imgUrl} />   

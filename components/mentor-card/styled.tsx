@@ -26,6 +26,7 @@ export const CardDescription = styled.div`
     
     ::-webkit-scrollbar-track {
         box-shadow: var(--scrollbar-track-card);
+        display: none;
     }
     
     ::-webkit-scrollbar-thumb {
@@ -46,7 +47,7 @@ export const CardImg = styled(Card.Img)`
 
 export const CardImgPopUp = styled(CardImg)`
 max-height: 210px;
-max-width: 70%;
+max-width: 50%;
 border-radius: 15px;
 `
 export const CardImgPopUpConteiner = styled.div`
