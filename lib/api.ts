@@ -73,6 +73,14 @@ export async function sendCode(email: string) {
   });
 }
 
+export async function sendSuggestion(data: Suggestion) {
+  return fetchAPI("/suggestion", {
+    method: "POST",
+    body: data
+  })
+}
+
+
 // envia la direccion de email y el codigo para obtener el token
 export async function getToken(email: string, code: string) {
   const data = await fetchAPI("/auth/token", {
