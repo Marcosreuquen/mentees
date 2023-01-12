@@ -8,3 +8,10 @@ type MentorData = {
   ownerAuthID:string,
   id: string
 };
+
+type Suggestion = {
+  name: string
+  lastname: string
+  email: string
+  suggestion: string
+}
