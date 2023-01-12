@@ -26,10 +26,9 @@ function MentorCard({
   imgUrl,
   community,
 }: Mentor) {  
-  const shortDescription = description? description.slice(0, 50) : "";
 
   return (
-    <CardContainer style={{ width: "18rem" }}>
+    <CardContainer style={{ width: "18rem", cursor:"pointer" }}>
       <MentorPopup name={name}
       fieldOfExpertise ={fieldOfExpertise} 
       description={description}
@@ -38,14 +37,11 @@ function MentorCard({
       <CardImg variant="top" src={imgUrl} />
       <CardBody>
         <Card.Title>
-          <Body>{name}</Body>
+          <Body size="1.5rem">{name}</Body>
         </Card.Title>
         <CardSubtitle>
           <Body>{fieldOfExpertise}</Body>
         </CardSubtitle>
-        <CardShortDescription>
-            <Body size="1rem">{shortDescription}</Body>
-        </CardShortDescription>
         <ComunityButton href={community} target="_blank">
           Ir a la comunidad
         </ComunityButton>

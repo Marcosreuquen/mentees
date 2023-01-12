@@ -23,3 +23,6 @@ body{
     --rojo: #cf0c20;
     --negro: #000;
 }
+.mentor-popup-conteiner{
+    border: black!important;
+}
