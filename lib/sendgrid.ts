@@ -77,7 +77,12 @@ export async function sendCodeByEmail(to: string, code: number) {
     `,
   });
 }
-export async function sendSuggestionByEmail(name:String, lastname: String, email:String, suggestion:String) {
+export async function sendSuggestionByEmail(
+  name: String,
+  lastname: String,
+  email: String,
+  suggestion: String
+) {
   return await sgMail.send({
     to: "mentees.proyect@gmail.com",
     from: "marcosreuquendiaz@gmail.com", // Change to your verified sender
@@ -130,7 +135,9 @@ export async function sendSuggestionByEmail(name:String, lastname: String, email
         ></div>
         <div>
           <h1 style="text-align: center">Hello!</h1>
-          <h2 style="text-align: center">Han enviado una sugerencia de ${name + " "} ${lastname} :</h2>
+          <h2 style="text-align: center">Han enviado una sugerencia de ${
+            name + " "
+          } ${lastname} :</h2>
         </div>
         <div>
           <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px">

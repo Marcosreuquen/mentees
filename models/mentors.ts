@@ -2,7 +2,7 @@ import { firestore } from "lib/db/firestore";
 import { algoliaClient } from "lib/algolia";
 
 const collection = firestore.collection("mentors");
-const algoliaIndexMentors = algoliaClient.initIndex("Mentors")
+const algoliaIndexMentors = algoliaClient.initIndex("Mentors");
 
 export class Mentor {
   id: string;
@@ -20,6 +20,17 @@ export class Mentor {
   async push(): Promise<void> {
     try {
       const result = await this.ref.update(this.data);
+
+      await algoliaIndexMentors.partialUpdateObject(
+        {
+          ...this.data,
+          objectID: this.id,
+        },
+        {
+          createIfNotExists: false,
+        }
+      );
+
       return result;
     } catch (error) {
       throw error;
@@ -41,9 +52,12 @@ export class Mentor {
         const newMentorSnap = await collection.add(data);
         const newMentor = new Mentor(newMentorSnap.id, data);
         newMentor.data = data;
-                
-        await algoliaIndexMentors.saveObject({...data, objectID:newMentorSnap.id})
-        
+
+        await algoliaIndexMentors.saveObject({
+          ...data,
+          objectID: newMentorSnap.id,
+        });
+
         return { message: "Mentor Created", newMentor };
       }
     } catch (error) {
@@ -53,14 +67,12 @@ export class Mentor {
 
   static async getAllMentors(limit: number, page: number) {
     try {
-    
-      const result= await algoliaIndexMentors.search("", {
-        page: page ? page  : 0,
+      const result = await algoliaIndexMentors.search("", {
+        page: page ? page : 0,
         hitsPerPage: page ? limit : 3,
-      })
+      });
 
-      return result
-      
+      return result;
     } catch (error) {
       throw error;
     }
@@ -86,14 +98,14 @@ export class Mentor {
       throw error;
     }
   }
-  
-  static async searchMentors(query: string, limit:number, page: string) {
+
+  static async searchMentors(query: string, limit: number, page: string) {
     try {
       const result = await algoliaIndexMentors.search(query, {
         page: page ? parseInt(page as string) : 0,
         hitsPerPage: page ? limit : 3,
-      })
-      
+      });
+
       return result;
     } catch (error) {
       throw error;

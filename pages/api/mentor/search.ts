@@ -13,10 +13,10 @@ async function getHandler(req: NextApiRequest, res: NextApiResponse) {
     res.json({
       results: results.hits,
       pagination: {
-      total: results.nbHits,
-      hitsPerPage: results.hitsPerPage,
-      nbPages: results.nbPages,
-      page: results.page,
+        total: results.nbHits,
+        hitsPerPage: results.hitsPerPage,
+        nbPages: results.nbPages,
+        page: results.page,
       },
     });
   } catch (error) {
