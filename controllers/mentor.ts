@@ -59,11 +59,7 @@ export async function searchMentors(
 ) {
   try {
     const limitToNumber = parseInt(hitsPerPage);
-    const results = await Mentor.searchMentors(
-      query,
-      limitToNumber,
-      page
-    );
+    const results = await Mentor.searchMentors(query, limitToNumber, page);
 
     return results;
   } catch (error) {
