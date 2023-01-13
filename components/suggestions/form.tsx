@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { sendSuggestion } from "lib/api";
-import { useRouter } from "next/router";
 import css from "./index.module.css";
 
 const schemaSuggestion = yup.object().shape({
@@ -28,11 +27,11 @@ const schemaSuggestion = yup.object().shape({
 });
 
 export const SuggestionsForm = () => {
-  const router = useRouter();
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset
   } = useForm({
     resolver: yupResolver(schemaSuggestion),
   });
@@ -48,8 +47,7 @@ export const SuggestionsForm = () => {
           position: toast.POSITION.TOP_CENTER,
         });
       }
-
-      router.push("/");
+      reset()
     } catch (e) {
       console.log(e);
       throw e;
