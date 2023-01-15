@@ -43,7 +43,7 @@ return (
                         <Body size="2.5rem">{fieldOfExpertise}</Body>
                     </CardSubtitle>
                     <CardDescription style={{height: "150px"}}>
-                        <Body size="1rem">{description}</Body>
+                        <Body size="1rem" style={{margin: "0 15px 0 0"}}>{description}</Body>
                     </CardDescription>
                     <ComunityButtonPopUp href={community} target="_blank">
                         Ir a la comunidad

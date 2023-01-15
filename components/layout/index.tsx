@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Header } from "components/header";
+import { Footer } from "components/footer";
 
 export const PageConteiner = styled.div`
   background: var(--background-gradient);
@@ -19,6 +20,7 @@ export function Layout({ children }: any) {
       <Container>
         {children}
       </Container>
+      <Footer />
     </PageConteiner>
   );
 }
