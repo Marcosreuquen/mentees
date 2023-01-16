@@ -10,8 +10,11 @@ return (
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
         rel="stylesheet"
       />
-      <title>Mentees</title>
       <link rel="shortcut icon" href="/logo-mentees.ico.png" />
+      <meta
+        name="description"
+        content="Únite a la comunidad de Mentees y encuentra mentores para ayudarte en tus proyectos. También puedes convertirte en mentor y compartir tus conocimientos con otros. ¡Regístrate hoy y forma parte de nuestra comunidad!"
+      /> a
     </Head>
     <body>
       <Main />
