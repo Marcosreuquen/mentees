@@ -9,9 +9,11 @@ export const Footer  = () => {
 
 
     return <FooterConteiner>
-        <Body size="1rem" style={{margin:"0px 20px 0 5px"}}>Tu experiencia puede ayudarnos a mejorar. Si tenes alguna sugerencia podes enviarla por acá. </Body>
-        <PrimaryButton onClick={()=>{router.push("/suggestions")}} >
-            Sugerencias
-        </PrimaryButton>
-    </FooterConteiner>
+            <div style={{maxWidth:"var(--max-width)", display: "flex", alignItems: "center"}}>
+                <Body size="1rem" style={{margin:"0px 20px 0 5px"}}>Tu experiencia puede ayudarnos a mejorar. Si tenes alguna sugerencia podes enviarla por acá. </Body>
+                <PrimaryButton onClick={()=>{router.push("/suggestions")}} >
+                    Sugerencias
+                </PrimaryButton>
+            </div>
+        </FooterConteiner>
 };
