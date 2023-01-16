@@ -108,13 +108,19 @@ export const SearchPage = () => {
         </SearchCardsContainer>
         <ButtonsContainer>
           <PaginationContainer>
+            {
+              nbPages?.length? 
+              <PrimaryButton onClick={handlePreviousClick}> Prev </PrimaryButton> : null
+            }
             {nbPages?.map((e: any) => {
               return <>
-                <PrimaryButton onClick={handlePreviousClick}> Prev </PrimaryButton>
                 <BulletButton onClick={handleBulletClick} active={e - 1 == parseInt(pageIndicator as string) ? "active" : ""} key={e}>{e}</BulletButton>
-                <PrimaryButton onClick={handleNextClick}> Sig </PrimaryButton>
               </>
             })}
+                        {
+              nbPages?.length? 
+              <PrimaryButton onClick={handleNextClick}> Sig </PrimaryButton> : null
+            }
           </PaginationContainer>
         </ButtonsContainer>
       </MentorsContainer>
