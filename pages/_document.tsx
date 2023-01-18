@@ -23,7 +23,7 @@ export default function Document() {
         />
         <meta property='og:type' content='article' />
         <meta property='og:url' content=' https://mentees-five.vercel.app' />
-        <meta property='og:image' content=' /social.jpg' />
+        <meta property='og:image' content=' /social.jpeg' />
         <meta
           property='og:description'
           content='Únite a la comunidad de Mentees y encuentra mentores para ayudarte en tus proyectos. También puedes convertirte en mentor y compartir tus conocimientos con otros. ¡Regístrate hoy y forma parte de nuestra comunidad!'
