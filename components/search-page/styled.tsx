@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { CardsContainer } from "components/mentors-section/styled";
 
 export const SearchCardsContainer = styled(CardsContainer)`
+min-height: 316px;
   margin: 50px auto 0 auto;
 `
 

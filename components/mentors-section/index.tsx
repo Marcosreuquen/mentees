@@ -9,6 +9,7 @@ import {
   PaginationContainer,
 } from "./styled";
 import { useRouter } from "next/router";
+import { CardLoading } from "components/loading";
 
 export const MentorsSection = () => {
   const router = useRouter();
@@ -97,7 +98,13 @@ export const MentorsSection = () => {
   return (
     <MentorsContainer>
       <CardsContainer>
-        {mentors?.data?.result?.map((m: any) => {
+        {
+          mentors.isLoading? <>
+                  <CardLoading></CardLoading>
+                  <CardLoading></CardLoading> 
+                  <CardLoading></CardLoading>
+              </> : 
+          mentors?.data?.result?.map((m: any) => {
           return (
             <MentorCard
               key={m.objectID}

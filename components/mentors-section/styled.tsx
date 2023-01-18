@@ -8,6 +8,7 @@ export const MentorsContainer = styled.div`
 `
 
 export const CardsContainer = styled.div`
+  min-height: 316px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

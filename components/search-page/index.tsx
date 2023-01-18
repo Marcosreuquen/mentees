@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { getPageBulletArray } from "hooks/mentor";
 import { NoResultsMessage } from "./styled";
 import { Body } from "UI/text";
+import { CardLoading } from "components/loading";
 
 export const SearchPage = () => {
   const router = useRouter();
@@ -86,7 +87,12 @@ export const SearchPage = () => {
       <SearchBar query={query.q as string}/>
       <MentorsContainer>
         <SearchCardsContainer>
-          {searchResults?.data?.results.length?
+          {
+          searchResults.isLoading? <>
+            <CardLoading />
+            <CardLoading />
+            <CardLoading />
+          </> :
           searchResults?.data?.results.map((m: any) => {
             return (
               <MentorCard
@@ -98,12 +104,16 @@ export const SearchPage = () => {
                 community={m.community}
               />
             );
-          }) : 
+          })
+          } 
+        {
+          searchResults.isLoading ? null : 
+          !searchResults?.data?.results.length?
           <NoResultsMessage>
             <Body>No encontramos resultados con este criterio de busqueda</Body>
             <Body>Intentá con palabras similares</Body>
-          </NoResultsMessage>
-        }
+          </NoResultsMessage> : null
+        }       
 
         </SearchCardsContainer>
         <ButtonsContainer>
