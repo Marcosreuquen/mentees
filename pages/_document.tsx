@@ -15,7 +15,7 @@ export default function Document() {
           name='description'
           content='Únite a la comunidad de Mentees y encuentra mentores para ayudarte en tus proyectos. También puedes convertirte en mentor y compartir tus conocimientos con otros. ¡Regístrate hoy y forma parte de nuestra comunidad!'
         />
-        {/* <meta name='twitter:card' value='summary'></meta> */}
+        <meta name='twitter:card' content='summary'></meta>
 
         <meta
           property='og:title'
