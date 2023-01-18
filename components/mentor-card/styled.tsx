@@ -42,6 +42,7 @@ export const CardShortDescription = styled.div`
 
 export const CardImg = styled(Card.Img)`
   max-height: 160px;
+  height: 160px;
   object-fit: cover;
 `;
 

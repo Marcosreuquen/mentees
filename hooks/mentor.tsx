@@ -1,23 +1,11 @@
 import { fetchAPI } from "lib/api";
-import { useEffect, useState } from "react";
 import useSWR from "swr";
 
-// interface pagination {
-//   limit: number
-//   offset: number
-// }
-interface pagination {
-  hitsPerPage?: number;
-  page?: number;
-  total?: number;
-  nbPages?: number
-}
-
-export const useMentors = (params: pagination) => {
+export const useMentors = (params: Pagination) => {
   const hitsPerPage = params.hitsPerPage
   const page = params.page
   
-  const { data, error } = useSWR(
+  const { data, isLoading, error } = useSWR(
     `/mentor?hitsPerPage=${hitsPerPage}&page=${page}`,
     fetchAPI,
     {
@@ -26,23 +14,17 @@ export const useMentors = (params: pagination) => {
       revalidateOnReconnect: false,
     }
   );
-    return {data, error}
+    return {data, isLoading, error}
 };
 
-interface searchQuery {
-  q?: string;
-  hitsPerPage?: string;
-  page?: string;
-}
-
-export const useSearchMentors = (query: searchQuery) => {
+export const useSearchMentors = (query: SearchQuery) => {
   const q = query.q;
   const page = query.page ? "&page=" + query.page : "";
   const hitsPerPage = query.hitsPerPage
     ? "&hitsPerPage=" + query.hitsPerPage
     : "";
 
-  const { data, error } = useSWR(
+  const { data, isLoading, error } = useSWR(
     q ? "/mentor/search?q=" + q + page + hitsPerPage : null,
     fetchAPI,
     {
@@ -52,7 +34,7 @@ export const useSearchMentors = (query: searchQuery) => {
     }
   );
 
-  return { data, error };
+  return { data, isLoading, error };
 };
 
 export const getPageBulletArray = (length: number) => {

@@ -15,3 +15,16 @@ type Suggestion = {
   email: string
   suggestion: string
 }
+
+type Pagination = {
+  hitsPerPage?: number;
+  page?: number;
+  total?: number;
+  nbPages?: number
+}
+
+type SearchQuery  = {
+  q?: string;
+  hitsPerPage?: string;
+  page?: string;
+}
