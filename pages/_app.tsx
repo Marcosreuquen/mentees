@@ -3,6 +3,7 @@ import "styles/base.css";
 import Head from 'next/head'
 import type { AppProps } from "next/app";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { RecoilRoot } from "recoil";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -10,7 +11,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>Mentees - Comunidad de mentores y mentees para compartir conocimientos</title>
       </Head>
-      <Component {...pageProps} />
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
     </>
   )
 }
