@@ -1,7 +1,8 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Label, Input, Textarea, AlertText } from "components/form/styled";
-import { PrimaryButton } from "components/form/styled";
+import { PrimaryButton } from "UI/buttons";
+("components/form/styled");
 import { useForm } from "react-hook-form";
 import { FormContainer } from "./styled";
 import { toast } from "react-toastify";
@@ -31,7 +32,7 @@ export const SuggestionsForm = () => {
     register,
     formState: { errors },
     handleSubmit,
-    reset
+    reset,
   } = useForm({
     resolver: yupResolver(schemaSuggestion),
   });
@@ -47,14 +48,15 @@ export const SuggestionsForm = () => {
           position: toast.POSITION.TOP_CENTER,
         });
       }
-      reset()
+      reset();
     } catch (e) {
       console.log(e);
       throw e;
     }
   };
 
-  return <>
+  return (
+    <>
       <ToastContainer />
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
         <Label htmlFor="name">
@@ -76,7 +78,9 @@ export const SuggestionsForm = () => {
             aria-invalid={errors.lastname ? "true" : "false"}
           />
         </Label>
-        {errors.lastname && <AlertText>{`${errors.lastname.message}`}</AlertText>}
+        {errors.lastname && (
+          <AlertText>{`${errors.lastname.message}`}</AlertText>
+        )}
         <Label htmlFor="email">
           Email
           <Input
@@ -100,7 +104,8 @@ export const SuggestionsForm = () => {
         )}
         <PrimaryButton className={css["form-button"]}>Enviar</PrimaryButton>
       </FormContainer>
-    </>;
+    </>
+  );
 };
 
 const capitalizeName = (name: string) => {

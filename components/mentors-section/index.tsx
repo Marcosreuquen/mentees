@@ -1,6 +1,7 @@
 import MentorCard from "components/mentor-card";
 import { useMentors, getPageBulletArray } from "hooks/mentor";
-import { BulletButton, PrimaryButton } from "components/form/styled";
+import { BulletButton} from "components/form/styled";
+import { PrimaryButton } from "UI/buttons";
 import { useEffect, useState } from "react";
 import {
   ButtonsContainer,

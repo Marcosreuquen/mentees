@@ -10,10 +10,8 @@ import {
   Input,
   InputImage,
   Textarea,
-  PrimaryButton,
   AlertText,
   ButtonsContainer,
-  DeleteButton,
 } from "./styled";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -24,6 +22,7 @@ import { createMentor, updateMentor, deleteMentor, deleteToken } from "lib/api";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
+import { DeleteButton, PrimaryButton } from "UI/buttons";
 
 // schema with required image for new mentor data
 const schemaNewMentor = yup.object().shape({

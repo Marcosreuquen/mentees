@@ -1,50 +1,88 @@
-import { useState } from "react"
-import { sendCode, getToken } from "lib/api";
-import router from "next/router";
-import { Input, Label, PrimaryButton } from "components/form/styled";
-import { FormLogin } from "./styled";
-import { Tiny } from "UI/text";
+import {  Label, RadioInput} from "components/form/styled";
+import { PrimaryButton } from "UI/buttons";
+import {
+  UserTypeCheckContainer,
+  RadioInputContainer,
+  UserTypeForm,
+} from "./styled";
+import { Body } from "UI/text";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { userType, userTypeSet } from "utils/atoms/atoms";
+import { MenteesLogin } from "./mentees";
+import { MentorLogin } from "./mentor";
+import css from "./index.module.css"
 
 export function Login(){
-    const [email, setEmail]= useState("")
-    function handlerEmailForm(e:any){
-        e.preventDefault()
-        const email = e.target.email.value;
-        console.log(email,"envia el email");
-        
-        sendCode(email)
-        setEmail(email)
+  const userTypeVal = useRecoilValue(userType);
+  const userTypeSetVal = useRecoilValue(userTypeSet);
+   
+  return !userTypeSetVal? <UserType /> : <LoginForm userType={userTypeVal}/>;
+}
+
+// component to determine which user is loggin in
+const UserType = () => {
+    const setUserType =  useSetRecoilState(userType);
+    const setUserTypeSet = useSetRecoilState(userTypeSet);
+
+    function handleUserTypeSubmit(e:any) {
+      e.preventDefault();
+      const userType = e.target.userType.value
+
+      if (!userType) {
+            return;
+      }
+
+      if (userType == "mentor") {
+        setUserType({
+          mentor: true,
+          mentees: false
+        })
+      } else {
+        setUserType({
+          mentor: false,
+          mentees: true
+        })
+      }
+      
+        setUserTypeSet(true)
     }
-    async function handlerCodeForm(e:any){
-        e.preventDefault()
-        const code = e.target.code.value;
-        try {
-            getToken(email,code).then(()=>{
-                router.push("/mentor")
-            })
-        } catch (error) {
-            console.log(error);
-            
-        }
-    }
-    const emailFormStyle = {
-        display: email? "none":"",
-    };
-    const codeFormStyle = {
-        display: email? "":"none",
-        bottom: "35px"
-    };
-    return <div>
-        <FormLogin style={emailFormStyle} onSubmit={handlerEmailForm}>
-            <Label htmlFor="">Email</Label>
-            <Input style={{margin:"10px"}} type="email" name="email" />
-            <PrimaryButton style={{alignSelf: "flex-end",margin: "5px"}}>Enviar</PrimaryButton>
-        </FormLogin>
-        <FormLogin style={codeFormStyle} onSubmit={handlerCodeForm}>
-            <Label htmlFor="">Código</Label>
-            <Input style={{margin:"5px"}} type="text" name="code" />
-            <Tiny style={{alignSelf: "center"}}>Te enviamos un código a tu email</Tiny>
-            <PrimaryButton style={{alignSelf: "flex-end",margin: "5px"}}>Enviar</PrimaryButton>
-        </FormLogin>
-    </div>
+  
+    return (
+      <>
+          <UserTypeForm onSubmit={handleUserTypeSubmit}>
+          <UserTypeCheckContainer>
+              <Body>¿Eres mentor o mentoreado?</Body>
+            <RadioInputContainer>
+              <RadioInput type="radio" name="userType" id="mentor" value="mentor" />
+              <Label htmlFor="mentor">
+                <Body>Mentor</Body>
+              </Label>
+            </RadioInputContainer>
+            <RadioInputContainer>
+              <RadioInput
+                type="radio"
+                name="userType"
+                id="mentees"
+                value="mentees"
+                />
+              <Label htmlFor="mentees">
+                <Body>Mentees</Body>
+              </Label>
+            </RadioInputContainer>
+          </UserTypeCheckContainer>
+          <PrimaryButton className={css["continue-button"]}>
+            Continuar
+          </PrimaryButton>
+        </UserTypeForm>
+      </>
+    );
+}
+
+// component to render different loggin form base on user selection
+const LoginForm = (userType: any)=>{ 
+  if (userType.userType.mentor) {
+      return <MentorLogin/>
+  } else {
+      return <MenteesLogin/>
+  }
 }

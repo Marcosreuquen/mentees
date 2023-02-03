@@ -1,4 +1,4 @@
-import { LogoutButton, PrimaryButton } from 'components/form/styled';
+import { LogoutButton, PrimaryButton } from "UI/buttons";
 import { Login } from 'components/login';
 import { deleteToken } from 'lib/api';
 import router from 'next/router';
@@ -35,7 +35,7 @@ export function LoginPopup() {
       </div>
     :
     <PrimaryButton onClick={() => setSmShow(true)}>
-        Quiero ser mentor
+        Ingresar
       </PrimaryButton>}
       <Modal 
         size="sm"
@@ -49,8 +49,9 @@ export function LoginPopup() {
         }} closeButton>
         </Modal.Header>
         <Modal.Body style={{
+          paddingTop: 0,
           borderRadius: "0 0 7px 7px",
-          height: "145px",
+          height: "166px",
           backgroundColor: "var(--gris-claro)",
         }}>
           <Login/>

@@ -8,7 +8,8 @@ import {
 import MentorCard from "components/mentor-card";
 import { SearchCardsContainer } from "./styled";
 import { PaginationContainer } from "components/mentors-section/styled";
-import { ButtonsContainer, PrimaryButton } from "components/form/styled";
+import { ButtonsContainer} from "components/form/styled";
+import { PrimaryButton } from "UI/buttons";
 import { BulletButton } from "components/form/styled";
 import { useEffect, useState } from "react";
 import { getPageBulletArray } from "hooks/mentor";
